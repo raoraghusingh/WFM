@@ -9,6 +9,42 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
+input.error
+{
+    border:1px solid red !important;
+}
+
+input.valid
+{
+    border:2px solid green !important;
+}
+textarea.error
+{
+    border:1px solid red !important;
+}
+
+textarea.valid
+{
+    border:2px solid green !important;
+}
+label.error
+{
+    
+    color:red;
+}
+.field-validation-error
+{
+    color:red;
+    font-weight:initial;
+}
+.input-validation-error
+{
+    border:1px solid red !important;
+}
+.valid
+{
+    border:1px solid green !important;
+}
 body {
   margin: 0;
 }
