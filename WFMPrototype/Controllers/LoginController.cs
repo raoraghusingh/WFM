@@ -28,7 +28,9 @@ namespace WFMPrototype.Controllers
                 Response.Cookies["Username"].Value = Objlogin.Username;
                 return Redirect("Super-Admin-Dashboard");
             }
-            if (Objlogin.Username == "surajkumarghosi@gmail.com" && Objlogin.Password == "123" && Objlogin.OrginizationID == 1)
+
+           
+           else if (Objlogin.Username == Objlogin.Username && Objlogin.Password == Objlogin.Password && Objlogin.OrginizationID == Objlogin.OrginizationID)
             {
                 Response.Cookies["OrgID"].Value = Convert.ToString(Objlogin.OrginizationID);
                 Response.Cookies["Username"].Value = Objlogin.Username;
