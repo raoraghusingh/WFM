@@ -226,6 +226,7 @@
     <Content Include="bower_components\jvectormap\tests\memory.html" />
     <Content Include="bower_components\jvectormap\tests\reverse-projection.html" />
     <Content Include="JS\Company\ManageCompany.js" />
+    <Content Include="JS\Organization\Organization.js" />
     <Content Include="packages.config" />
     <Content Include="README.md" />
     <Content Include="bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
@@ -367,6 +368,9 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_NewLayout.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Shared\_SuperAdminLayout.cshtml" />
+    <Content Include="Views\Organization\Index.cshtml" />
+    <Content Include="Views\Organization\Dashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -561,6 +565,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="DAL\WFMLive.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -569,6 +574,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckSession.cs" />
     <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\SessionInfo.cs" />
