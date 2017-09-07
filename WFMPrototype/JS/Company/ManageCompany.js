@@ -1,6 +1,5 @@
 ﻿$.validator.setDefaults({
     submitHandler: function () {
-        debugger;
         var companydetails = {};
         companydetails.CompanyID = 0;
         companydetails.CompanyName = $("#txtcompanyname").val();

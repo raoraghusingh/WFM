@@ -1,6 +1,5 @@
 ﻿$.validator.setDefaults({
     submitHandler: function () {
-        debugger;
         var organizationdetails = {};
         organizationdetails.OrgID = $("#hdnorganization").val();
         organizationdetails.OrganizationName = $("#txtcompanyname").val();
@@ -42,7 +41,7 @@
                 else {
                     $.alert({
                         title: '',
-                        content: 'Some thing went wrong. please try after sometime!',
+                        content: 'Something went wrong. please try after sometime!',
                         type: 'red',
                     });
                 }
@@ -114,15 +113,13 @@ $(document).ready(function () {
 });
 
 
-function Cancel()
-{
+function Cancel(){
 
     $("#spantext").text("Create Organization");
     $('#Organizationform')[0].reset();
     $("#hdnorganization").val(0);
 }
-function LoadOrganization()
-{
+function LoadOrganization(){
     $.ajax({
         type: "GET",
         url: "Organization/OrgnizationList",
