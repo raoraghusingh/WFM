@@ -1,6 +1,6 @@
 ﻿$.validator.setDefaults({
-    submitHandler: function () {
-        if ($("#hdnshift").val() == "1") {
+    submitHandler: function () {       
+        if ($("#hdnshift").val() == "1") {            
             UpdateShift();
         }
         else{
@@ -141,8 +141,7 @@ function EditShift(ShiftID) {
             var StartSeconds = StartTime.substr(6, 2);
             var EndHours = EndTime.substr(0, 2);
             var EndMinutes = EndTime.substr(3, 2);
-            var EndSeconds = EndTime.substr(6, 2);
-            $("#hdnshift").val(data.ShiftID)
+            var EndSeconds = EndTime.substr(6, 2);           
             $("#txtshiftname").val(data.ShiftName);
             $("#ddlstarthours").val(StartHours);
             $("#ddlstartminutes").val(StartMinutes);
@@ -182,7 +181,7 @@ function UpdateShift() {
             $("#ddlendseconds").val("");
             $.alert({
                 title: '',
-                content: 'Shift details Updated successfully!',
+                content: 'Shift details updated successfully!',
                 type: 'green',
             });
            
@@ -213,7 +212,7 @@ function RemoveShift(ShiftID) {
             LoadShifts();
             $.alert({
                 title: '',
-                content: 'Shift details Deleted successfully!',
+                content: 'Shift details deleted successfully!',
                 type: 'green',
             });
         }
