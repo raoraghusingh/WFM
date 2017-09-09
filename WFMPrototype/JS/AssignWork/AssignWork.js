@@ -4,17 +4,39 @@
             UpdateAssignwork();
         }
         else {
+            checklistobj = [];
+            $('input[type="checkbox"]').each(function () {
+                if ($(this).is(':checked')) {
+                    if ($(this).val() != "on") {
+                        checklistobj.push($(this).val());                       
+                    }
+
+                }
+
+            });
+            checklisttimeobj = [];
+            $("input[name='control_text']").map(function () {              
+                checklisttimeobj.push(this.value);
+               
+           }).get();
+
+           
+           
             var assignworkdetails = {};
-            assignworkdetails.CompanyName = $("#ddlcompanyname").val();
-            assignworkdetails.WorkerName = $("#ddlworkername").val();
+           // assignworkdetails.CompanyName = $("#ddlcompanyname").text();
+            assignworkdetails.CompanyID = $("#ddlcompanyname").val();
+            assignworkdetails.WorkerName = $("#ddlworkername option:selected").text();
             assignworkdetails.ShiftName = $("#ddlshift").val();
           //  assignworkdetails.Checklist = $("#chkchecklist").val();
             assignworkdetails.WorkInterVal = $("#txtworkinterval").val();
             
+              
+                // console.log(jsonObj);
+         
             $.ajax({
                 type: "POST",
                 url: "AssignWork/AssignWork",
-                data: assignworkdetails,
+                data: { assignworkdetails: assignworkdetails, checklistobj: checklistobj, checklisttimeobj: checklisttimeobj, checklistintervalobj: checklistintervalobj },
                 cache: false,
                 success: function (data) {
 
@@ -49,21 +71,21 @@
 
 
 $(document).ready(function () {
-
+   
     $("#assignworkform").validate({
         rules: {
             ddlcompanyname: "required",
             ddlworkername: "required",
             ddlshift: "required",
             chkchecklist: "required",            
-            txtworkinterval: "required",
+         //   txtworkinterval: "required",
         },
         messages: {
             ddlcompanyname: "Please select company name",
             ddlworkername: "Please select worker name",
             ddlshift: "Please select shift name",
-            chkchecklist: "Please enter father name",           
-            txtworkinterval: "Please enter work interval",
+            chkchecklist: "Please choose work",           
+           // txtworkinterval: "Please enter work interval",
 
         }
     });
@@ -76,6 +98,42 @@ $(document).ready(function () {
     BindWorker();
     BindShift();
     LoadAssignedWork();
+    $("#lblchecklist").hide();
+    checklistintervalobj = [];
+    $("#ddlshift").change(function () {
+        if ($("#ddlshift").val() != "" && $("#ddlcompanyname").val() != "") {
+          
+            $.ajax({
+                type: "GET",
+                url: "AssignWork/CheckList",
+                data: { CompanyID: $("#ddlcompanyname").val(), ShiftID: $("#ddlshift").val() },
+                cache: false,
+                success: function (data) {
+                    $("#lblchecklist").show();
+                    $.each(data, function (i, value) {
+                        $("#chkchecklist").append($("<label>").text(value.WorkName + '(' + value.WorkInterval + ')').prepend(
+             $("<input>").attr('type', 'checkbox').val(value.ChecklistID)
+           
+
+
+         ));
+                       
+                        checklistintervalobj.push(value.WorkInterval);
+                        $("#chkchecklist").append('<input name="control_text" class="form-control" style="width:15%" type="text"/></br>');
+                        
+                    })
+                },
+                error: function (error) {
+                    $.alert({
+                        title: '',
+                        content: 'Something went wrong. please try after sometime!',
+                        type: 'red',
+
+                    });
+                },
+            });
+        }
+    });
 });
 
 function Cancel() {
@@ -225,7 +283,7 @@ function BindCompany() {
             }));
             $.each(data, function (i, value) {
                 $('#ddlcompanyname').append($('<option>', {
-                    value: value.CompanyName,
+                    value: value.CompanyID,
                     text: value.CompanyName
                 }));
             })
