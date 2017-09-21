@@ -225,8 +225,13 @@
     <Content Include="bower_components\jvectormap\tests\markers.html" />
     <Content Include="bower_components\jvectormap\tests\memory.html" />
     <Content Include="bower_components\jvectormap\tests\reverse-projection.html" />
+    <Content Include="JS\AssignWork\AssignWork.js" />
     <Content Include="JS\Company\ManageCompany.js" />
+    <Content Include="JS\LostFound\LostFound.js" />
     <Content Include="JS\Organization\Organization.js" />
+    <Content Include="JS\Shift\Shift.js" />
+    <Content Include="JS\Supervisor\Supervisor.js" />
+    <Content Include="JS\TicketFeedback\TicketFeedback.js" />
     <Content Include="packages.config" />
     <Content Include="README.md" />
     <Content Include="bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
@@ -371,6 +376,11 @@
     <Content Include="Views\Shared\_SuperAdminLayout.cshtml" />
     <Content Include="Views\Organization\Index.cshtml" />
     <Content Include="Views\Organization\Dashboard.cshtml" />
+    <Content Include="Views\Shift\Index.cshtml" />
+    <Content Include="Views\Supervisor\Index.cshtml" />
+    <Content Include="Views\AssignWork\Index.cshtml" />
+    <Content Include="Views\LostFound\Index.cshtml" />
+    <Content Include="Views\TicketFeedback\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -561,11 +571,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AssignWorkController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LostFoundController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\ShiftController.cs" />
+    <Compile Include="Controllers\SupervisorController.cs" />
+    <Compile Include="Controllers\TicketFeedbackController.cs" />
     <Compile Include="DAL\WFMLive.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -582,6 +597,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="SupervisorIdProof\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

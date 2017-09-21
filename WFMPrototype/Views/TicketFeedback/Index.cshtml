@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Complain or Feedback
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+
+        <li class="active">Complain or Feedback</li>
+    </ol>
+</section>
+<!-- Main content -->
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a id="AddSupervisor" href="#fa-icons" data-toggle="tab">Complain/Feedback</a></li>
+                   
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="fa-icons">
+
+                        <!-- Horizontal Form -->
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form class="form-horizontal" id="supervisorform">
+                            <div class="box-body">
+                                <input type="hidden" id="hdnsupervisor" value="0" />
+                                <input type="hidden" id="hdnsupervisorID" value="0" />
+                                <div class="form-group">
+                                    <label for="txtcompanyname" class="col-sm-2 control-label">Company Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="txtcompanyname" name="txtcompanyname" placeholder="Company Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtcompanyemail" class="col-sm-2 control-label">Company Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="txtcompanyemail" name="txtcompanyemail" placeholder="Comapny Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtname" class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="txtname" name="txtname" placeholder="Your Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtemail" class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="Your Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtmobile" class="col-sm-2 control-label">Mobile</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="txtmobile" name="txtmobile" placeholder="Your Mobile Number">
+                                    </div>
+                                </div>
+                               
+                             
+
+                                <div class="form-group">
+                                    <label for="ddltype" class="col-sm-2 control-label">Type</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="ddltype" name="ddltype">
+                                            <option value="">Select Type</option>
+                                            <option value="Feedback">Feedback</option>
+                                            <option value="Complain">Complain</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                              
+                               
+                                <div class="form-group">
+                                    <label for="txtcomments" class="col-sm-2 control-label">Comments</label>
+                                    <div class="col-sm-10">
+                                        <textarea type="text" class="form-control" id="txtcomments" name="txtcomments" placeholder="Type here..."></textarea>
+                                    </div>
+                                </div>
+                             
+                                <div class="form-group">
+                                    <label for="fuproof" class="col-sm-2 control-label">Image</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" id="fuproof" name="fuproof">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-info pull-right" style="margin-left:10px">Submit</button>
+
+                                <button type="button" onclick="Cancel()" class="btn btn-info pull-right">Cancel</button>
+
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                        <!-- /.box -->
+
+
+                    </div>
+                    <!-- /#fa-icons -->
+                    <!-- glyphicons-->
+           
+                </div>
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+<script src="~/JS/TicketFeedback/TicketFeedback.js"></script>
+

@@ -185,7 +185,7 @@ function LoadAssignedWork() {
 
 function EditAssignedWork(AssignWorkID) {
     $("#hdnassignwork").val(1);
-    $("#hdnassignworkID").val(SupervisorID)
+    $("#hdnassignworkID").val(AssignWorkID)
     $('#AssignWork').trigger('click');
     $("#spantext").text("Edit Assigned Work");
     $.ajax({
@@ -195,7 +195,7 @@ function EditAssignedWork(AssignWorkID) {
         cache: false,
         success: function (data) {
             $("#ddlcompanyname").val(data.CompanyName);
-            $("#ddlworkername").val(data.WorkerName);
+            $("#ddlworkername").text(data.WorkerName);
             $("#ddlshift").val(data.ShiftName);
             $("#chkchecklist").val(data.Checklist);
             $("#txtinterval").val(data.WorkInterVal);           
