@@ -210,7 +210,7 @@ function RemoveOrganization(OrgID) {
             LoadOrganization();
             $.alert({
                 title: '',
-                content: 'Organization details saved successfully!',
+                content: 'Organization deleted  successfully!',
                 type: 'green',
             });
         }

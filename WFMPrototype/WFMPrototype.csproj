@@ -225,8 +225,10 @@
     <Content Include="bower_components\jvectormap\tests\markers.html" />
     <Content Include="bower_components\jvectormap\tests\memory.html" />
     <Content Include="bower_components\jvectormap\tests\reverse-projection.html" />
+    <Content Include="JS\CheckList\Checklist.js" />
     <Content Include="JS\Company\ManageCompany.js" />
     <Content Include="JS\Organization\Organization.js" />
+    <Content Include="JS\Worker\Worker.js" />
     <Content Include="packages.config" />
     <Content Include="README.md" />
     <Content Include="bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
@@ -371,6 +373,8 @@
     <Content Include="Views\Shared\_SuperAdminLayout.cshtml" />
     <Content Include="Views\Organization\Index.cshtml" />
     <Content Include="Views\Organization\Dashboard.cshtml" />
+    <Content Include="Views\Checklist\Index.cshtml" />
+    <Content Include="Views\Worker\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -561,11 +565,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AssignSupervisorController.cs" />
+    <Compile Include="Controllers\ChecklistController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\StockManagementController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\WorkerController.cs" />
     <Compile Include="DAL\WFMLive.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -574,6 +583,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckList.cs" />
     <Compile Include="Models\CheckSession.cs" />
     <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -582,6 +592,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="dist\img\worker\" />
+    <Folder Include="Views\AssignSupervisor\" />
+    <Folder Include="Views\StockManagement\" />
+    <Folder Include="Views\Ticket\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
