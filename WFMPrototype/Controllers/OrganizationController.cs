@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,8 +25,15 @@ namespace WFMPrototype.Controllers
         }
         [HttpPost]
         [CheckSession]
-        public ActionResult AddEditOrganization(tbl_organization organizationdetails)
+        public ActionResult AddEditOrganization(tbl_organization organizationdetails, HttpPostedFileBase file)
         {
+            if (file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/UploadFile/"), fileName);
+                file.SaveAs(path);
+            }
+
             try
             {
                 using (var db = new WFMLiveDataContext())

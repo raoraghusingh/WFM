@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+ <!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Manage Checklist
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+
+        <li class="active">Checklist</li>
+    </ol>
+</section>
+<!-- Main content -->
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#fa-icons" id="addcompany" data-toggle="tab"><span id="spantext"></span></a></li>
+                    <li><a href="#glyphicons" data-toggle="tab">Checklist List</a></li>
+                </ul>
+                <div class="tab-content">
+                    <!-- Font Awesome Icons -->
+                    <div class="tab-pane active" id="fa-icons">
+
+                        <!-- Horizontal Form -->
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form class="form-horizontal" id="checklistform">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <input type="hidden" id="hdncompanyid" value="0" />
+                                    <label for="ddlcompanyname" class="col-sm-2 control-label">Company Name</label>
+                                    <div class="col-sm-10">
+                                        @*<input type="text" class="form-control" name="txtcompanyname" id="txtcompanyname" placeholder="Company Name">*@
+                                        <select id="ddlcompanyname" name="ddlcompanyname" class="form-control">
+
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtworkname" class="col-sm-2 control-label">Work Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="txtworkname" name="txtworkname" placeholder="Work Name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtworkinterval" class="col-sm-2 control-label">Work Interval</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="txtworkinterval" name="txtworkinterval" placeholder="Work Interval (like daily,weekly,monthly)" />
+                                        @*<input type="checkbox" value="0" />Shift Time1 <select class="form-control" style="display:inline;width:12%" id="ddlhours"><option>09</option></select><select style="display:inline;width:12%"  class="form-control" id="ddlhours"><option>09</option></select><select style="display:inline;width:12%"  class="form-control" id="ddlhours"><option>09</option></select><br />
+                                        <input type="checkbox" value="0" />Shift Time1 <select class="form-control" style="display:inline;width:12%" id="ddlhours"><option>09</option></select><select style="display:inline;width:12%"  class="form-control" id="ddlhours"><option>09</option></select><select style="display:inline;width:12%"  class="form-control" id="ddlhours"><option>09</option></select><br />
+                                        <input type="checkbox" value="0" />Shift Time1 <select class="form-control" style="display:inline;width:12%" id="ddlhours"><option>09</option></select><select style="display:inline;width:12%"  class="form-control" id="ddlhours"><option>09</option></select><select style="display:inline;width:12%"  class="form-control" id="ddlhours"><option>09</option></select>*@
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtworkinterval" class="col-sm-2 control-label">Shift </label>
+                                    <div class="col-sm-10">
+                                        @{ 
+
+                                            if (ViewBag.shiftlist !=null)
+                                            {
+                                                foreach(var shiftitem in ViewBag.shiftlist)
+                                                {
+                                                    <input type="checkbox" value="@shiftitem.ShiftID" />@shiftitem.ShiftName   <label>(Start time @shiftitem.StartTime || End time @shiftitem.EndTime ) </label> <br />
+                                                }
+                                            }
+
+                                        }
+                                       
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-info pull-right" style="margin-left:10px">Submit</button>
+
+                                <button type="submit" class="btn btn-info pull-right">Cancel</button>
+
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                        <!-- /.box -->
+
+
+                    </div>
+                    <!-- /#fa-icons -->
+                    <!-- glyphicons-->
+                    <div class="tab-pane" id="glyphicons">
+                        <table id="tblcompanylist" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Company Name</th>
+                                    <th>Company Address</th>
+                                    <th>Company Phone</th>
+                                    <th>Owner Name</th>
+                                    <th>Email/User Name</th>
+                                    <th>Owner Mobile</th>
+                                    <th>State</th>
+                                    <th>City</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                    <!-- /#ion-icons -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+<script src="~/JS/CheckList/Checklist.js"></script>
