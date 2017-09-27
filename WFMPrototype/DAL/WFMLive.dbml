@@ -45,7 +45,6 @@
       <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
-
   <Table Name="dbo.tbl_checklist" Member="tbl_checklists">
     <Type Name="tbl_checklist">
       <Column Name="ChecklistID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -216,45 +215,9 @@
       <Column Name="MiddleName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="LastName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="FathreName" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
-      <Column Name="Mobile" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="EmailID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="IDProof" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="Gender" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="State" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="City" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="ParmanentAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="CurrentAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="OrgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ModifyBy" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="ModifyDate" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tbl_checklist" Member="tbl_checklists">
-    <Type Name="tbl_checklist">
-      <Column Name="ChecklistID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="WorkName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="WorkInterval" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="OrgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ModifyBy" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="ModifyDate" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ShiftID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tbl_worker" Member="tbl_workers">
-    <Type Name="tbl_worker">
-      <Column Name="WorkerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="FathreName" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
       <Column Name="Mobile" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="EmailID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="IDProof" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="IDProof" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Gender" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
       <Column Name="State" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="City" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
@@ -271,5 +234,18 @@
     <Parameter Name="companyid" Type="System.Int32" DbType="Int" />
     <Parameter Name="orgid" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.WorkAsssignmentReport" Method="WorkAsssignmentReport">
+    <Parameter Name="FromDate" Parameter="fromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ToDate" Parameter="toDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Company" Parameter="company" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="WorkAsssignmentReportResult">
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WorkerName" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="ShiftName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Checklist" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WorkTime" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="WorkInterVal" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>
