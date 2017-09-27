@@ -127,8 +127,10 @@
 
 
 $(document).ready(function () {
-    $("#spantext").text("Create Checklist");
-    LoadCompany();
+    $("#spantext").text("Create Worker");
+    LoadAllworker();
+    bindState();
+    BindCity();
     // page validaton using jquery
     $("#workerform").validate({
         rules: {
@@ -198,30 +200,102 @@ $(document).ready(function () {
 
 
 
-function LoadCompany() {
+function LoadAllworker() {
     $.ajax({
         type: "GET",
-        url: "Company/CompanyList",
+        url: "Worker/WorkerList",
+        data: "",
+        cache: false,
+        success: function (data) {
+            debugger;
+            $('#tblcompanyworker').DataTable().destroy();
+            $("#tblcompanyworker tbody").empty();
+
+            var tabledatabody = '';
+            $.each(data, function (index, value) {
+                tabledatabody += '<tr>';
+                tabledatabody += ' <td>' + (value.FirstName + " " + value.MiddleName + " " + value.LastName) + '</td>';
+                tabledatabody += ' <td>' + value.FathreName + '</td>';
+                tabledatabody += ' <td>' + value.EmailID + '</td>';
+                tabledatabody += ' <td>' + value.Mobile + '</td>';
+                tabledatabody += ' <td>' + value.ParmanentAddress + '</td>';
+                tabledatabody += ' <td>' + value.CurrentAddress + '</td>';
+                tabledatabody += ' <td>' + value.Gender + '</td>';
+                tabledatabody += ' <td>' + value.State + '</td>';
+                tabledatabody += ' <td>' + value.City + '</td>';
+                tabledatabody += ' <td><img src=' + value.IDProof + '></img></td>';
+                tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditWorkder(' + value.WorkerID + ')> <i class="glyphicon glyphicon-edit"></i></a></td>';
+                tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveCompany(' + value.CompanyID + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
+                tabledatabody += ' </tr>';
+            });
+
+
+            $("#tblcompanyworker tbody").append(tabledatabody);
+            $.fn.dataTable.ext.errMode = 'none';
+
+            $('#tblcompanyworker').DataTable({
+                responsive: {
+                    details: {
+                        type: 'column',
+                        target: -2
+                    }
+                },
+               
+                responsive: true
+            });
+
+           
+        }
+    });
+}
+
+
+
+function bindState() {
+    $.ajax({
+        type: "GET",
+        url: "Worker/GetAllstates",
         data: "",
         cache: false,
         success: function (data) {
 
 
-            //$('#ddlcompanyname').empty();
-            //$("#ddlcompanyname").append($('<option></option>').val("").html('Select Company'));
-            //$.each(data, function (i, value) {
-            //    $("#ddlcompanyname").append($("<option></option>").val(value.CompanyID).html(value.CompanyName));
-            //    //$('#ddlcompanyname').append($('', { value: value.CompanyID, text: value.CompanyName }));
-            //})
 
-            $("#ddlcompanyname").html("");
-            $('#ddlcompanyname').append($('<option>', {
+
+            $("#ddlstate").html("");
+            $('#ddlstate').append($('<option>', {
+                value: "",
+                text: "Select State"
+            }));
+            $.each(data, function (i, value) {
+
+                $('#ddlstate').append($('<option>', {
+                    value: value.StateID,
+                    text: value.StateName
+                }));
+            })
+        }
+    });
+}
+function BindCity() {
+    $.ajax({
+        type: "GET",
+        url: "Worker/Citylistbyid",
+        data: { statsid: $("#ddlstate").val() },
+        cache: false,
+        success: function (data) {
+
+
+
+
+            $("#ddlcity").html("");
+            $('#ddlcity').append($('<option>', {
                 value: "",
                 text: "Select company"
             }));
             $.each(data, function (i, value) {
 
-                $('#ddlcompanyname').append($('<option>', {
+                $('#ddlcity').append($('<option>', {
                     value: value.CompanyID,
                     text: value.CompanyName
                 }));
@@ -232,38 +306,37 @@ function LoadCompany() {
 
 
 
+function EditWorkder(WorkderID) {
 
-
-function EditCompany(CompanyID) {
-
-    $('#addcompany').trigger('click');
-    $("#spantext").text("Edit Company");
+    $('#addworker').trigger('click');
+    $("#spantext").text("Edit Worker");
     $.ajax({
         type: "GET",
-        url: "Company/GetCompanyByID",
-        data: { ID: CompanyID },
+        url: "Worker/GetDetailbyid",
+        data: { workerid: WorkderID },
         cache: false,
         success: function (data) {
-
-
-            $("#hdncompanyid").val(data.CompanyID)
-            $("#txtcompanyname").val(data.CompanyName);
-            $("#txtcompanyaddress").val(data.CompanyAddress);
-            $("#txtcompanyphone").val(data.CompanyPhone);
-            $("#txtownername").val(data.OwnerName);
-            $("#txtusername").val(data.EmailID);
-            $("#txtpassword").val(data.Password);
-            $("#txtownermobile").val(data.OwnerMobile);
-
             $("#ddlstate").val(data.State);
+            $("#ddlstate").trigger('change');
+            $("#hdnworkerid").val(data.CompanyID)
+            $("#txtfirstname").val(data.FirstName);
+            $("#txtmiddle").val(data.MiddleName);
+            $("#txtlastname").val(data.LastName);
+            $("#txtfathername").val(data.FathreName);
+            $("#txtusername").val(data.EmailID);
+            $("#txtworkermobile").val(data.Mobile);
+            $("#txtcurrentaddress").val(data.CurrentAddress);
+            $("#txtparmaent").val(data.ParmanentAddress);
+            $("#ddlGender").val(data.Gender);
+            
+
+
             $("#ddlcity").val(data.City);
         }
     });
 }
 
 function RemoveCompany(CompanyID) {
-
-
     $.ajax({
         type: "GET",
         url: "Company/Removecompany",

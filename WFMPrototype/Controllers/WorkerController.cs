@@ -18,6 +18,7 @@ namespace WFMPrototype.Controllers
             return View();
         }
 
+        [CheckSession]
         public ActionResult Addworker()
         {
             string Result = string.Empty;
@@ -86,6 +87,73 @@ namespace WFMPrototype.Controllers
             }
             return Json(Result);
 
+        }
+
+        [CheckSession]
+        public JsonResult WorkerList()
+        {
+            dynamic Activeworkerlist = null;
+            try
+            {
+                using (var db = new WFMLiveDataContext())
+                {
+                    Activeworkerlist = db.tbl_workers.Where(a => a.OrgID == SessionInfo.OrgID && a.IsActive == true).ToList();
+                }
+            }catch(Exception ex)
+            {
+
+            }
+            return Json(Activeworkerlist, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDetailbyid(int workerid)
+        {
+            dynamic workerdetails = null;
+            try
+            {
+                using (var db = new WFMLiveDataContext())
+                {
+                    workerdetails = db.tbl_workers.Where(a => a.WorkerID == workerid).FirstOrDefault();
+                }
+
+            }catch(Exception ex)
+            {
+
+            }
+            return Json(workerdetails, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllstates()
+        {
+            dynamic statslist = null;
+            try
+            {
+                using (var db = new WFMLiveDataContext())
+                {
+                    statslist = db.tbl_states.ToList();
+                }
+            }catch(Exception ex)
+            {
+
+            }
+            return Json(statslist, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Citylistbyid(int statsid)
+        {
+            dynamic citylist = null;
+            try
+            {
+                using (var db = new WFMLiveDataContext())
+                {
+                    citylist = db.tbl_cities.Where(a => a.StateID == statsid).ToList();
+                }
+
+            }catch(Exception ex)
+            {
+
+            }
+            return Json(citylist, JsonRequestBehavior.AllowGet);
         }
     }
 }

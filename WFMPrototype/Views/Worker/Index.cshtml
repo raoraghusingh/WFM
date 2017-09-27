@@ -35,7 +35,7 @@
                         <!-- form start -->
                         <form class="form-horizontal" id="workerform">
                             <div class="box-body">
-                               
+                               <input type="hidden" id="hdnworkerid" value="0" />
                                 <div class="form-group">
                                     <label for="txtfirstname" class="col-sm-2 control-label">First Name</label>
                                     <div class="col-sm-10">
@@ -102,11 +102,7 @@
                                     <label for="ddlstate" class="col-sm-2 control-label">State</label>
                                     <div class="col-sm-10">
                                         <select class="form-control" id="ddlstate" name="ddlstate">
-                                            <option value="">Select State</option>
-                                            <option value="Rajasthan">Rajasthan</option>
-                                            <option value="Gujrat">Gujrat</option>
-                                            <option value="MP">MP</option>
-                                            <option value="UP">UP</option>
+                                           
                                         </select>
                                     </div>
                                 </div>
@@ -114,11 +110,8 @@
                                     <label for="ddlcity" class="col-sm-2 control-label">City</label>
                                     <div class="col-sm-10">
                                         <select class="form-control" id="ddlcity" name="ddlcity">
-                                            <option value="">Select State</option>
-                                            <option value="Udaipur">Udaipur</option>
-                                            <option value="Jaipur">Jaipur</option>
-                                            <option value="Bhilwara">Bhilwara</option>
-                                            <option value="Jodhpur">Jodhpur</option>
+                                           
+                                           
                                         </select>
                                     </div>
                                 </div>
@@ -129,6 +122,7 @@
                                         (Adhar card,Voter ID card,any valid govt document)
                                     </div>
                                 </div>
+                                
 
                             </div>
                             <!-- /.box-body -->
@@ -147,18 +141,19 @@
                     <!-- /#fa-icons -->
                     <!-- glyphicons-->
                     <div class="table-responsive tab-pane" id="glyphicons">
-                        <table id="tblcompanylist" class="display wrap" cellspacing="0" width="100%">
+                        <table id="tblcompanyworker" class="display wrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Company Name</th>
-                                    <th>Company Address</th>
-                                    <th>Company Phone</th>
-                                    <th>Owner Name</th>
-                                    <th>Email/User Name</th>
-                                    <th>Owner Mobile</th>
+                                    <th>Worker Name</th>
+                                    <th>Father Name</th>
+                                    <th>Email </th>
+                                    <th>Mobile</th>
+                                    <th>Parmanent Address</th>
+                                    <th>Current Address</th>
+                                    <th>Gender</th>
                                     <th>State</th>
                                     <th>City</th>
-
+                                    <th>ID Proof</th>
                                     <th></th>
                                     <th></th>
                                 </tr>

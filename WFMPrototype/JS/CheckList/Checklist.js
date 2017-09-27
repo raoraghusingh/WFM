@@ -2,7 +2,7 @@
     submitHandler: function () {
         debugger;
         var checklistdetails = {};
-        
+        checklistdetails.ChecklistID = $("#hdnchecklistid").val();
         checklistdetails.CompanyID = $("#ddlcompanyname").val();
         checklistdetails.WorkName = $("#txtworkname").val();
         checklistdetails.WorkInterval = $("#txtworkinterval").val();
@@ -18,10 +18,12 @@
             data: checklistdetails,
             cache: false,
             success: function (data) {
-                $("#spantext").text("Create CheckList");
-                $('#checklistform')[0].reset();
-                $("#hdnchecklistid").val(0);
+               
                 if (data == 1) {
+                    $("#spantext").text("Create CheckList");
+                    $('#checklistform')[0].reset();
+                    $("#hdnchecklistid").val(0);
+                    BindChecklist();
                     $.alert({
                         title: '',
                         content: 'Checklist saved successfully!',
@@ -58,8 +60,8 @@
 
 $(document).ready(function () {
     $("#spantext").text("Create Checklist");
-    LoadCompany();
     BindChecklist();
+    
     // page validaton using jquery
     $("#checklistform").validate({
         rules: {
@@ -81,7 +83,8 @@ $(document).ready(function () {
 
 
 
-function Editchecklist(id, companyID) {
+function Editchecklist(checklistid,id, companyID) {
+    $("#hdnchecklistid").val(checklistid);
     $("input[type='checkbox']").prop('checked', false);
     $('#addcompany').trigger('click');
       $("#spantext").text("Edit Checklist");
@@ -164,6 +167,7 @@ function BindChecklist() {
                 var workintervale = '';
                 var shiftname = '';
                 var camid = 0;
+                var chekclistid = 0;
 
                 
                     for (var j = 0; j < returnedData.length; j++) {
@@ -173,13 +177,15 @@ function BindChecklist() {
                         workintervale = returnedData[j].workinterval
                         shiftname += returnedData[j].shiftname + "(" + returnedData[j].shiftstarttime + "||" + returnedData[j].shiftendtime + ")" + ",";
                         camid = returnedData[j].companyid;
+                        chekclistid = returnedData[j].checklistid;
+
                     }
                     tabledatabody += '<tr>';
                     tabledatabody += ' <td>' + companyname + '</td>';
                     tabledatabody += ' <td><lable id=' + count + '>' + workname + '</lable></td>';
                     tabledatabody += ' <td>' + workintervale + '</td>';
                     tabledatabody += ' <td>' + shiftname.slice(0, -1) + '</td>';
-                    tabledatabody += ' <td><a href="javascript:void(0);" onclick="Editchecklist( '+count+ ',' +camid + ')"> <i class="glyphicon glyphicon-edit"></i></a></td>';
+                    tabledatabody += ' <td><a href="javascript:void(0);" onclick="Editchecklist( ' + chekclistid + ',' + count + ',' + camid + ')"> <i class="glyphicon glyphicon-edit"></i></a></td>';
                     tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveCompany('+count+ ',' +camid + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
                     tabledatabody += ' </tr>';
                 
