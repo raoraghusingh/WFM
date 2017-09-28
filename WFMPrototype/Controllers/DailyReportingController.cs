@@ -59,27 +59,23 @@ namespace WFMPrototype.Controllers
         [CheckSession]
         public ActionResult DailyReportingList()
         {
-            dynamic DailyReportingList = null;
+
+            List<GetDailyReportingDataResult> lst = new List<DAL.GetDailyReportingDataResult>();
             try
             {
                 using (var db = new WFMLiveDataContext())
                 {
-
-                    DailyReportingList = db.tbl_dailyreportings.Where(a => a.IsActive == true && a.OrgID == SessionInfo.OrgID).ToList();
-
+                    lst = db.GetDailyReportingData(SessionInfo.OrgID).ToList();
                 }
 
             }
+            catch (Exception ex) { }
 
-            catch (Exception ex)
-            {
-
-            }
-            return Json(DailyReportingList, JsonRequestBehavior.AllowGet);
+            return Json(lst, JsonRequestBehavior.AllowGet);
         }
 
         [CheckSession]
-        public ActionResult GetDataByDailyReportingID(int DailyReportingID)
+        public ActionResult GetDataByDailyReportingID(string WorkerID,string date)
         {
             dynamic DailyReportingData = null;
             try
@@ -87,7 +83,7 @@ namespace WFMPrototype.Controllers
                 using (var db = new WFMLiveDataContext())
                 {
 
-                    DailyReportingData = db.tbl_dailyreportings.Where(a => a.DailyReportingID == DailyReportingID && a.OrgID == SessionInfo.OrgID).FirstOrDefault();
+                    DailyReportingData = db.tbl_dailyreportings.Where(a => a.WorkerName == WorkerID && a.OrgID == SessionInfo.OrgID && a.Date== date).FirstOrDefault();
 
                 }
 

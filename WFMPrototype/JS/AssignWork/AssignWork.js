@@ -1,7 +1,8 @@
 ﻿$.validator.setDefaults({
     submitHandler: function () {
-        if ($("#hdnassignework").val() == "1") {
-            UpdateAssignwork();
+        debugger;
+        if ($("#hdnassignwork").val() == "1") {
+            UpdateAssignedWork();
         }
         else {
             checklistobj = [];
@@ -25,7 +26,7 @@
             var assignworkdetails = {};
            // assignworkdetails.CompanyName = $("#ddlcompanyname").text();
             assignworkdetails.CompanyID = $("#ddlcompanyname").val();
-            assignworkdetails.WorkerName = $("#ddlworkername option:selected").text();
+            assignworkdetails.WorkerName = $("#ddlworkername option:selected").val();
             assignworkdetails.ShiftName = $("#ddlshift").val();
           //  assignworkdetails.Checklist = $("#chkchecklist").val();
             assignworkdetails.WorkInterVal = $("#txtworkinterval").val();
@@ -46,7 +47,7 @@
                             content: 'Work assigned successfully!',
                             type: 'green',
                         });
-                        LoadSupervisors();
+                        LoadAssignedWork();
                     }
                     //else if (data == 2) {
                     //    $.alert({
@@ -119,7 +120,7 @@ $(document).ready(function () {
          ));
                        
                         checklistintervalobj.push(value.WorkInterval);
-                        $("#chkchecklist").append('<input name="control_text" class="form-control" style="width:15%" type="text"/></br>');
+                        $("#chkchecklist").append('<input name="control_text" placeholder="work time" class="form-control" style="width:15%" type="text"/></br>');
                         
                     })
                 },
@@ -162,9 +163,9 @@ function LoadAssignedWork() {
                 tabledatabody += ' <td>' + value.WorkerName + '</td>';
                 tabledatabody += ' <td>' + value.ShiftName + '</td>';
                 tabledatabody += ' <td>' + value.Checklist + '</td>';
-                tabledatabody += ' <td>' + value.WorkInterVal + '</td>';               
-                tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditAssignedWork(' + value.AssignWorkID + ')> <i class="glyphicon glyphicon-edit"></i></a></td>';
-                tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveAssignedWork(' + value.AssignWorkID + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
+               // tabledatabody += ' <td>' + value.WorkInterVal + '</td>';               
+                tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditAssignedWork(' + value.WorkerID + ')> <i class="glyphicon glyphicon-edit"></i></a></td>';
+              //  tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveAssignedWork(' + value.WorkerID + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
                 tabledatabody += ' </tr>';
             });
             $("#tblAssignedWork tbody").append(tabledatabody);
@@ -183,27 +184,52 @@ function LoadAssignedWork() {
 }
 
 
-function EditAssignedWork(AssignWorkID) {
+function EditAssignedWork(WorkerID) {
+    debugger;
     $("#hdnassignwork").val(1);
-    $("#hdnassignworkID").val(AssignWorkID)
+    $("#hdnassignworkID").val(WorkerID)
     $('#AssignWork').trigger('click');
     $("#spantext").text("Edit Assigned Work");
     $.ajax({
         type: "GET",
-        url: "AssignWork/GetDataByAssignWorkID",
-        data: { AssignWorkID: AssignWorkID },
+        url: "AssignWork/GetDataByWorkerID",
+        data: { WorkerID: WorkerID },
         cache: false,
         success: function (data) {
-            $("#ddlcompanyname").val(data.CompanyName);
-            $("#ddlworkername").text(data.WorkerName);
+            $("#ddlcompanyname").val(data.CompanyID);
+            $("#ddlworkername").val(data.WorkerName);
             $("#ddlshift").val(data.ShiftName);
-            $("#chkchecklist").val(data.Checklist);
-            $("#txtinterval").val(data.WorkInterVal);           
+          //  $("#chkchecklist").val(data.Checklist);
+            // $("#txtinterval").val(data.WorkInterVal);   
+            $('#ddlshift').trigger('change');
         }
+
     });
+
+
+    //for (var i = 0; i < chekbox.length; i++) {
+    //    $("input[valu='" + value.Checklist + "']").prop('checked', true);
+    //}
+
 }
 function UpdateAssignedWork() {
+    debugger;
     var assignworkdetails = {};
+    checklistobj = [];
+    $('input[type="checkbox"]').each(function () {
+        if ($(this).is(':checked')) {
+            if ($(this).val() != "on") {
+                checklistobj.push($(this).val());
+            }
+
+        }
+
+    });
+    checklisttimeobj = [];
+    $("input[name='control_text']").map(function () {
+        checklisttimeobj.push(this.value);
+
+    }).get();
 
     assignworkdetails.CompanyName = $("#ddlcompanyname").val();
     assignworkdetails.WorkerName = $("#ddlworkername").val();
@@ -214,7 +240,7 @@ function UpdateAssignedWork() {
     $.ajax({
         type: "POST",
         url: "AssignWork/UpdateAssignedWork",
-        data: assignworkdetails,
+        data: {WorkerID:$("#hdnassignworkID").val(), assignworkdetails: assignworkdetails, checklistobj: checklistobj, checklisttimeobj: checklisttimeobj, checklistintervalobj: checklistintervalobj },
         cache: false,
         success: function (data) {
 

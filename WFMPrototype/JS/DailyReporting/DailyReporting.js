@@ -1,7 +1,7 @@
 ﻿$.validator.setDefaults({
     submitHandler: function () {
         if ($("#hdndailyreporting").val() == "1") {
-            UpdateAssignwork();
+            UpdateDailyReporting();
         }
         else {
             checklistobj = [];
@@ -25,7 +25,7 @@
             var dailyreportingdetails = {};
             // assignworkdetails.CompanyName = $("#ddlcompanyname").text();
             dailyreportingdetails.CompanyID = $("#ddlcompanyname").val();
-            dailyreportingdetails.WorkerName = $("#ddlworkername option:selected").text();
+            dailyreportingdetails.WorkerName = $("#ddlworkername option:selected").val();
             dailyreportingdetails.ShiftName = $("#ddlshift").val();
             //  assignworkdetails.Checklist = $("#chkchecklist").val();
             dailyreportingdetails.Date = $("#txtdate").val();
@@ -71,7 +71,7 @@
 
 
 $(document).ready(function () {
-
+    var chekbox = [];
     $("#dailyreportingform").validate({
         rules: {
             ddlcompanyname: "required",
@@ -157,13 +157,7 @@ function LoadDailyReporting() {
 
             var tabledatabody = '';
             $.each(data, function (index, value) {
-                var WorkerList = [];
-                WorkerList.push(value.WorkerName);
-                myNewArray = jQuery.grep(WorkerList, function (n, i) {
-                    return n = value.WorkerName;
-                });
-                myNewArray.length;
-            });
+               
                 tabledatabody += '<tr>';
 
                 tabledatabody += ' <td>' + value.CompanyName + '</td>';
@@ -171,10 +165,10 @@ function LoadDailyReporting() {
                 tabledatabody += ' <td>' + value.ShiftName + '</td>';
                 tabledatabody += ' <td>' + value.Checklist + '</td>';
                 tabledatabody += ' <td>' + value.Date + '</td>';
-                tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditDailyReporting(' + value.AssignWorkID + ')> <i class="glyphicon glyphicon-edit"></i></a></td>';
-                tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveDailyReporting(' + value.AssignWorkID + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
+                tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditDailyReporting(' + value.WorkerID +')> <i class="glyphicon glyphicon-edit"></i></a></td>';
+               // tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveDailyReporting(' + value.WorkerName + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
                 tabledatabody += ' </tr>';
-        //    });
+           });
             $("#tblDailyReporting tbody").append(tabledatabody);
             $.fn.dataTable.ext.errMode = 'none';
             $('#tblDailyReporting').DataTable({
@@ -191,56 +185,72 @@ function LoadDailyReporting() {
 }
 
 
-function EditDailyReporting(DailyReportingID) {
+function EditDailyReporting(WorkerID) {
     $("#hdndailyreporting").val(1);
-    $("#hdndailyreportingID").val(DailyReportID)
+    $("#hdndailyreportingID").val(WorkerID)
     $('#DailyReportL').trigger('click');
+   
     $("#spantext").text("Edit Daily Report");
+    var MyDate = new Date(Date);
     $.ajax({
         type: "GET",
         url: "DailyReporting/GetDataByDailyReportingID",
-        data: { DailyReportingID: DailyReportingID },
+        data: { WorkerID: WorkerID, Date: '2017-09-26' },
         cache: false,
         success: function (data) {
-            $("#ddlcompanyname").val(data.CompanyName);
-            $("#ddlworkername").text(data.WorkerName);
-            $("#ddlshift").val(data.ShiftName);
-            $("#chkchecklist").val(data.Checklist);
-            $("#txtdate").val(data.Date);
+          
+            $.each(data, function (i, value) {
+                $("#ddlcompanyname").val(value.CompanyID);
+                $("#ddlworkername").val(value.WorkerName);
+                $("#ddlshift").val(value.ShiftName);
+                // $("#chkchecklist").val(data.Checklist);
+                chekbox.push(value.Checklist);
+              
+                $("#txtdate").val(value.Date);
+               
+            });
+            $('#ddlshift').trigger('change');
+          
+            for(var i=0;i<chekbox.length;i++)
+            {
+                $("input[valu='" + value.Checklist + "']").prop('checked', true);
+            }
         }
+
     });
+    
 }
 function UpdateDailyReporting() {
     var dailyreportingdetails = {};
 
-    dailyreportingdetails.CompanyName = $("#ddlcompanyname").val();
-    dailyreportingdetails.WorkerName = $("#ddlworkername").val();
+    dailyreportingdetails.CompanyID = $("#ddlcompanyname").val();
+    dailyreportingdetails.WorkerName = $("#ddlworkername option:selected").val();
     dailyreportingdetails.ShiftName = $("#ddlshift").val();
     //  assignworkdetails.Checklist = $("#chkchecklist").val();
     dailyreportingdetails.Date = $("#txtdate").val();
-    dailyreportingdetails.AssignWorkID = $("#hdndailyreportingID").val();
+  //  dailyreportingdetails.AssignWorkID = $("#hdndailyreportingID").val();
     $.ajax({
         type: "POST",
         url: "DailyReporting/UpdateDailyReporting",
-        data: assignworkdetails,
+        data: dailyreportingdetails,
         cache: false,
         success: function (data) {
 
             $("#hdndailyreportingID").val(0);
             $("#hdndailyreporting").val(0);
-            $("#spantext").text("Assign Work");
+            $("#spantext").text("Daily Report");
             LoadDailyReporting();
             $("#ddlcompanyname").val("");
             $("#ddlworkername").val("");
             $("#ddlshift").val("");
-            $("#chkchecklist").val("");
-            $("#txtdate").val("");
+          //  $("#chkchecklist").val("");
+           // $("#txtdate").val("");
             $.alert({
                 title: '',
                 content: 'Data updated successfully!',
                 type: 'green',
             });
-            LoadAssignedWork();
+            LoadDailyReporting();
 
         },
         error: function (error) {

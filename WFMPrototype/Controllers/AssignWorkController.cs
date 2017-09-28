@@ -58,27 +58,22 @@ namespace WFMPrototype.Controllers
         [CheckSession]
         public ActionResult AssignedWorkList()
         {
-            dynamic AssignedWorkList = null;
+            List<GetAssignedWorkDataResult> lst = new List<DAL.GetAssignedWorkDataResult>();
             try
             {
                 using (var db = new WFMLiveDataContext())
                 {
-
-                    AssignedWorkList = db.tbl_assignworks.Where(a => a.IsActive == true && a.OrgID == SessionInfo.OrgID).ToList();
-
+                    lst = db.GetAssignedWorkData(SessionInfo.OrgID).ToList();
                 }
 
             }
+            catch (Exception ex) { }
 
-            catch (Exception ex)
-            {
-
-            }
-            return Json(AssignedWorkList, JsonRequestBehavior.AllowGet);
+            return Json(lst, JsonRequestBehavior.AllowGet);
         }
 
         [CheckSession]
-        public ActionResult GetDataByAssignWorkID(int AssignWorkID)
+        public ActionResult GetDataByWorkerID(string WorkerID)
         {
             dynamic AssignedWorkData = null;
             try
@@ -86,7 +81,7 @@ namespace WFMPrototype.Controllers
                 using (var db = new WFMLiveDataContext())
                 {
 
-                    AssignedWorkData = db.tbl_assignworks.Where(a => a.AssignWorkID == AssignWorkID && a.OrgID == SessionInfo.OrgID).FirstOrDefault();
+                    AssignedWorkData = db.tbl_assignworks.Where(a => a.WorkerName == WorkerID && a.OrgID == SessionInfo.OrgID).FirstOrDefault();
 
                 }
 
@@ -99,24 +94,46 @@ namespace WFMPrototype.Controllers
         }
         [HttpPost]
         [CheckSession]
-        public void UpdateAssignedWork(tbl_assignwork assignworkdetails)
+        public void UpdateAssignedWork(string WorkerID,tbl_assignwork assignworkdetails, Array checklistobj, Array checklisttimeobj, Array checklistintervalobj)
         {
             try
             {
                 using (var db = new WFMLiveDataContext())
                 {
-                    tbl_assignwork supervisorentity = db.tbl_assignworks.Single(a => a.AssignWorkID == assignworkdetails.AssignWorkID && a.OrgID == SessionInfo.OrgID);
-                    tbl_assignwork assignworkentity = new tbl_assignwork();
-                    assignworkentity.CompanyName = assignworkdetails.CompanyName;
-                    assignworkentity.WorkerName = assignworkdetails.WorkerName;
-                    assignworkentity.ShiftName = assignworkdetails.ShiftName;
-                    assignworkentity.Checklist = assignworkdetails.Checklist;
-                    assignworkentity.WorkInterVal = assignworkdetails.WorkInterVal;
-                    assignworkentity.IsActive = true;
-                    assignworkentity.OrgID = SessionInfo.OrgID;
-                    assignworkentity.ModifyBy = SessionInfo.Username;
-                    assignworkentity.ModifyDate = System.DateTime.Today.AddHours(5).ToShortDateString();
+                    tbl_assignwork Obj = new tbl_assignwork();
+                    Obj = db.tbl_assignworks.Where(a => a.WorkerName == WorkerID && a.OrgID == SessionInfo.OrgID).First();
+                    Obj.IsActive = false;
                     db.SubmitChanges();
+                    /* tbl_assignwork supervisorentity = db.tbl_assignworks.Single(a => a.AssignWorkID == assignworkdetails.AssignWorkID && a.OrgID == SessionInfo.OrgID);
+                     tbl_assignwork assignworkentity = new tbl_assignwork();
+                     assignworkentity.CompanyName = assignworkdetails.CompanyName;
+                     assignworkentity.WorkerName = assignworkdetails.WorkerName;
+                     assignworkentity.ShiftName = assignworkdetails.ShiftName;
+                     assignworkentity.Checklist = assignworkdetails.Checklist;
+                     assignworkentity.WorkInterVal = assignworkdetails.WorkInterVal;
+                     assignworkentity.IsActive = true;
+                     assignworkentity.OrgID = SessionInfo.OrgID;
+                     assignworkentity.ModifyBy = SessionInfo.Username;
+                     assignworkentity.ModifyDate = System.DateTime.Today.AddHours(5).ToShortDateString();
+                     db.SubmitChanges(); */
+                    for (int i = 0; i < checklistobj.Length; i++)
+                    {
+                        
+                        tbl_assignwork assignworkentity = new tbl_assignwork();
+                        //  assignworkentity.CompanyName = assignworkdetails.CompanyName;
+                        assignworkentity.CompanyID = assignworkdetails.CompanyID;
+                        assignworkentity.WorkerName = assignworkdetails.WorkerName;
+                        assignworkentity.ShiftName = assignworkdetails.ShiftName;
+                        assignworkentity.Checklist = Convert.ToString(checklistobj.GetValue(i));
+                        assignworkentity.WorkTime = Convert.ToString(checklisttimeobj.GetValue(i));
+                        assignworkentity.WorkInterVal = Convert.ToString(checklistintervalobj.GetValue(i));
+                        assignworkentity.IsActive = true;
+                        assignworkentity.OrgID = SessionInfo.OrgID;
+                        assignworkentity.ModifyBy = SessionInfo.Username;
+                        assignworkentity.ModifyDate = System.DateTime.Today.AddHours(5).ToShortDateString();
+                        db.tbl_assignworks.InsertOnSubmit(assignworkentity);
+                        db.SubmitChanges();
+                    }
 
                 }
 
