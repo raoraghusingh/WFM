@@ -27,7 +27,7 @@ namespace WFMPrototype.Controllers
 
                     if (companydetails.CompanyID > 0)
                     {
-                        tbl_company companyentity = db.tbl_companies.Where(a => a.CompanyID == companydetails.CompanyID && a.CompanyName == companydetails.CompanyName).FirstOrDefault();
+                        dynamic companyentity = db.tbl_companies.Where(a => a.CompanyID == companydetails.CompanyID && a.CompanyName == companydetails.CompanyName).FirstOrDefault();
                         if (companyentity == null)
                         {
                             var checknameexits = db.tbl_companies.Where(a => a.CompanyName == companydetails.CompanyName || a.EmailID==companydetails.EmailID   && a.OrgID==SessionInfo.OrgID && a.IsActive==true).FirstOrDefault();
@@ -36,6 +36,7 @@ namespace WFMPrototype.Controllers
                                 return Json("2", JsonRequestBehavior.AllowGet);
                             }
                         }
+                        companyentity = db.tbl_companies.Where(a => a.CompanyID == companydetails.CompanyID).FirstOrDefault();
                         companyentity.CompanyName = companydetails.CompanyName;
                         companyentity.CompanyPhone = companydetails.CompanyPhone;
                         companyentity.CompanyAddress = companydetails.CompanyAddress;

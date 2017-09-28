@@ -61,7 +61,7 @@
 $(document).ready(function () {
     $("#spantext").text("Create Checklist");
     BindChecklist();
-    
+    LoadCompany();
     // page validaton using jquery
     $("#checklistform").validate({
         rules: {

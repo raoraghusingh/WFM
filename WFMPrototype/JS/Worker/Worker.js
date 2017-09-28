@@ -16,9 +16,11 @@
             }  
               
             // Adding one more key to FormData object  
+            fileData.append('Workerid', $("#hdnworkerid").val());
             fileData.append('firstname', $("#txtfirstname").val());
             fileData.append('middlename', $("#txtmiddle").val());
             fileData.append('lastname', $("#txtlastname").val());
+            fileData.append('father', $("#txtfathername").val());
             fileData.append('email', $("#txtusername").val());
             fileData.append('mobile', $("#txtworkermobile").val());
             fileData.append('paremanetaddress', $("#txtparmaent").val());
@@ -37,6 +39,10 @@
                 processData: false, // Not to process data  
                 data: fileData,  
                 success: function (data) {
+                    $("#hdnworkerid").val();
+                    $("#spantext").text("Add Worker");
+                    $('#workerform')[0].reset();
+                   
                     if (data == 1) {
                         $.alert({
                             title: '',
@@ -71,57 +77,8 @@
             alert("FormData is not supported.");  
         }  
    
-        //var checklistdetails = {};
-
-        //checklistdetails.CompanyID = $("#ddlcompanyname").val();
-        //checklistdetails.WorkName = $("#txtworkname").val();
-        //checklistdetails.WorkInterval = $("#txtworkinterval").val();
-        //checklistdetails.Shiftlist = [];
-        //$('input[type="checkbox"]:checked').each(function () {
-        //    checklistdetails.Shiftlist.push($(this).val())
-        //    //$('#t').append(', ' + $(this).val());
-        //});
-
-        //$.ajax({
-        //    type: "POST",
-        //    url: "Checklist/Addchecklist",
-        //    data: checklistdetails,
-        //    cache: false,
-        //    success: function (data) {
-        //        $("#spantext").text("Create Company");
-        //        $('#companyform')[0].reset();
-        //        $("#hdncompanyid").val(0);
-        //        if (data == 1) {
-        //            $.alert({
-        //                title: '',
-        //                content: 'Comapny details saved successfully!',
-        //                type: 'green',
-        //            });
-        //        }
-        //        else if (data == 2) {
-        //            $.alert({
-        //                title: '',
-        //                content: 'Company name already exist!',
-        //                type: 'red',
-        //            });
-        //        }
-        //        else if (data == 3) {
-        //            $.alert({
-        //                title: '',
-        //                content: 'Company details updated successfully!',
-        //                type: 'green',
-        //            });
-        //        }
-        //        else {
-        //            $.alert({
-        //                title: '',
-        //                content: 'Some thing went wrong. please try after sometime!',
-        //                type: 'red',
-        //            });
-        //        }
-        //    }
-        //});
     }
+
 });
 
 
@@ -130,7 +87,8 @@ $(document).ready(function () {
     $("#spantext").text("Create Worker");
     LoadAllworker();
     bindState();
-    BindCity();
+    
+    
     // page validaton using jquery
     $("#workerform").validate({
         rules: {
@@ -196,10 +154,49 @@ $(document).ready(function () {
     });
 
     //end
+
+    $("#ddlstate").change(function () {
+        BindCity();
+    });
+
+  
+    $("#sameaddress").change(function () {
+        debugger;
+        if ($(this).is(":checked")) {
+            $("#txtcurrentaddress").val($("#txtparmaent").val());
+        } else {
+            $("#txtcurrentaddress").val("");
+        }
+    });
 });
 
 
+function LoadCompany() {
+    $.ajax({
+        type: "GET",
+        url: "Company/CompanyList",
+        data: "",
+        cache: false,
+        success: function (data) {
 
+
+
+
+            $("#ddlcompanyname").html("");
+            $('#ddlcompanyname').append($('<option>', {
+                value: "",
+                text: "Select company"
+            }));
+            $.each(data, function (i, value) {
+
+                $('#ddlcompanyname').append($('<option>', {
+                    value: value.CompanyID,
+                    text: value.CompanyName
+                }));
+            })
+        }
+    });
+}
 function LoadAllworker() {
     $.ajax({
         type: "GET",
@@ -223,7 +220,7 @@ function LoadAllworker() {
                 tabledatabody += ' <td>' + value.Gender + '</td>';
                 tabledatabody += ' <td>' + value.State + '</td>';
                 tabledatabody += ' <td>' + value.City + '</td>';
-                tabledatabody += ' <td><img src=' + value.IDProof + '></img></td>';
+                tabledatabody += ' <td><img style="width:80%;height:50%" src=' + value.IDProof + '></img></td>';
                 tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditWorkder(' + value.WorkerID + ')> <i class="glyphicon glyphicon-edit"></i></a></td>';
                 tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveCompany(' + value.CompanyID + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
                 tabledatabody += ' </tr>';
@@ -270,18 +267,20 @@ function bindState() {
             $.each(data, function (i, value) {
 
                 $('#ddlstate').append($('<option>', {
-                    value: value.StateID,
+                    value: value.StateName,
                     text: value.StateName
                 }));
             })
+           // BindCity();
         }
     });
 }
 function BindCity() {
+    debugger;
     $.ajax({
         type: "GET",
         url: "Worker/Citylistbyid",
-        data: { statsid: $("#ddlstate").val() },
+        data: { statename: $("#ddlstate").val() },
         cache: false,
         success: function (data) {
 
@@ -291,20 +290,25 @@ function BindCity() {
             $("#ddlcity").html("");
             $('#ddlcity').append($('<option>', {
                 value: "",
-                text: "Select company"
+                text: "Select City"
             }));
             $.each(data, function (i, value) {
 
                 $('#ddlcity').append($('<option>', {
-                    value: value.CompanyID,
-                    text: value.CompanyName
+                    value: value.CityName,
+                    text: value.CityName
                 }));
             })
         }
     });
 }
 
+function Cancel() {
 
+    $("#hdnworkerid").val();
+    $("#spantext").text("Add Worker");
+    $('#workerform')[0].reset();
+}
 
 function EditWorkder(WorkderID) {
 
@@ -317,8 +321,8 @@ function EditWorkder(WorkderID) {
         cache: false,
         success: function (data) {
             $("#ddlstate").val(data.State);
-            $("#ddlstate").trigger('change');
-            $("#hdnworkerid").val(data.CompanyID)
+            BindCity();
+            $("#hdnworkerid").val(data.WorkerID)
             $("#txtfirstname").val(data.FirstName);
             $("#txtmiddle").val(data.MiddleName);
             $("#txtlastname").val(data.LastName);
@@ -329,9 +333,10 @@ function EditWorkder(WorkderID) {
             $("#txtparmaent").val(data.ParmanentAddress);
             $("#ddlGender").val(data.Gender);
             
+            setTimeout(function () { $("#ddlcity").val(data.City); }, 1000);
 
-
-            $("#ddlcity").val(data.City);
+            $("#previewmsg").attr("src", data.IDProof)
+           
         }
     });
 }

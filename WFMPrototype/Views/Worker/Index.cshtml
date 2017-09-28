@@ -36,6 +36,7 @@
                         <form class="form-horizontal" id="workerform">
                             <div class="box-body">
                                <input type="hidden" id="hdnworkerid" value="0" />
+                                
                                 <div class="form-group">
                                     <label for="txtfirstname" class="col-sm-2 control-label">First Name</label>
                                     <div class="col-sm-10">
@@ -78,8 +79,14 @@
                                     <div class="col-sm-10">
                                         <textarea type="text" class="form-control" id="txtparmaent" name="txtparmaent" placeholder="Parmanent Address"></textarea>
                                     </div>
-                                </div><br />
-                                <input type="checkbox" id="sameaddress" /> Same as Current address 
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtparmaent" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <input type="checkbox" id="sameaddress" /> Same as Current address 
+                                    </div>
+                                </div>
+                                
                                 <div class="form-group">
                                     <label for="txtcurrentaddress" class="col-sm-2 control-label">Current Address</label>
                                     <div class="col-sm-10">
@@ -118,9 +125,11 @@
                                 <div class="form-group">
                                     <label for="txtDesignation" class="col-sm-2 control-label">ID Proof</label>
                                     <div class="col-sm-10">
-                                        <input type="file" id="idproof" name="idproof" class="form-control">
+                                        <input type="file" id="idproof" name="idproof"  onchange="loadFile(event)" class="form-control">
                                         (Adhar card,Voter ID card,any valid govt document)
+                                        <img id="previewmsg" />
                                     </div>
+                                    
                                 </div>
                                 
 
@@ -129,7 +138,7 @@
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-info pull-right" style="margin-left:10px">Submit</button>
 
-                                <button type="submit" class="btn btn-info pull-right">Cancel</button>
+                                <button type="button" onclick="Cancel()" class="btn btn-info pull-right">Cancel</button>
 
                             </div>
                             <!-- /.box-footer -->
@@ -171,5 +180,14 @@
     </div>
     <!-- /.row -->
 </section>
-
+<script>
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('previewmsg');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>
 <script src="~/JS/Worker/Worker.js"></script>

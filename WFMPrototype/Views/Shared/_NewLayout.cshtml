@@ -15,7 +15,7 @@
     <!-- jvectormap -->
     <link rel="stylesheet" href="/bower_components/jvectormap/jquery-jvectormap.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/dist/css/AdminLTE.css">
     <link rel="stylesheet" href="/bower_components/morris.js/morris.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skin
          folder instead of downloading all of them to reduce the load. -->
@@ -73,7 +73,9 @@
 
 
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
+    
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
@@ -235,7 +237,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./Labor">
+                        <a href="./Worker">
                             <i class="fa fa-th"></i> <span>Add Labor</span>
 
 
@@ -452,8 +454,10 @@
             </section>
             <!-- /.sidebar -->
         </aside>
+        
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            <div class="loading" id="loadingdiv" style="display:none">Loading&#8230;</div>
             @RenderBody()
         </div>
         <!-- /.content-wrapper -->
@@ -469,12 +473,23 @@
         <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
+       
     </div>
     <!-- ./wrapper -->
     <script>
         $(document).ready(function () {
             $('#example').DataTable();
+
+
+        });
+        $(document).ajaxStart(function () {
+            $("#loadingdiv").show();
+        });
+
+        $(document).ajaxComplete(function () {
+            $("#loadingdiv").hide();
         });
     </script>
+    
 </body>
 </html>
