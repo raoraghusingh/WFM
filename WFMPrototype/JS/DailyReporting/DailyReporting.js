@@ -195,44 +195,63 @@ function EditDailyReporting(WorkerID) {
     $.ajax({
         type: "GET",
         url: "DailyReporting/GetDataByDailyReportingID",
-        data: { WorkerID: WorkerID, Date: '2017-09-26' },
+        data: { WorkerID: WorkerID, Date: '2017-09-29' },
         cache: false,
         success: function (data) {
           
-            $.each(data, function (i, value) {
-                $("#ddlcompanyname").val(value.CompanyID);
-                $("#ddlworkername").val(value.WorkerName);
-                $("#ddlshift").val(value.ShiftName);
+           // $.each(data, function (i, value) {
+            $("#ddlcompanyname").val(data.CompanyID);
+            $("#ddlworkername").val(data.WorkerName);
+            $("#ddlshift").val(data.ShiftName);
                 // $("#chkchecklist").val(data.Checklist);
-                chekbox.push(value.Checklist);
+               // chekbox.push(value.Checklist);
               
-                $("#txtdate").val(value.Date);
+            $("#txtdate").val(data.Date);
                
-            });
+          //  });
             $('#ddlshift').trigger('change');
           
-            for(var i=0;i<chekbox.length;i++)
-            {
-                $("input[valu='" + value.Checklist + "']").prop('checked', true);
-            }
+            //for(var i=0;i<chekbox.length;i++)
+            //{
+            //    $("input[valu='" + value.Checklist + "']").prop('checked', true);
+            //}
         }
 
     });
     
 }
 function UpdateDailyReporting() {
-    var dailyreportingdetails = {};
+    checklistobj = [];
+    $('input[type="checkbox"]').each(function () {
+        if ($(this).is(':checked')) {
+            if ($(this).val() != "on") {
+                checklistobj.push($(this).val());
+            }
 
+        }
+
+    });
+    //checklisttimeobj = [];
+    //$("input[name='control_text']").map(function () {
+    //    checklisttimeobj.push(this.value);
+
+    //}).get();
+
+
+
+    var dailyreportingdetails = {};
+    // assignworkdetails.CompanyName = $("#ddlcompanyname").text();
     dailyreportingdetails.CompanyID = $("#ddlcompanyname").val();
     dailyreportingdetails.WorkerName = $("#ddlworkername option:selected").val();
     dailyreportingdetails.ShiftName = $("#ddlshift").val();
     //  assignworkdetails.Checklist = $("#chkchecklist").val();
     dailyreportingdetails.Date = $("#txtdate").val();
-  //  dailyreportingdetails.AssignWorkID = $("#hdndailyreportingID").val();
+
+
     $.ajax({
         type: "POST",
         url: "DailyReporting/UpdateDailyReporting",
-        data: dailyreportingdetails,
+        data: { WorkerID: $("#hdndailyreportingID").val(), dailyreportingdetails: dailyreportingdetails, checklistobj: checklistobj },
         cache: false,
         success: function (data) {
 

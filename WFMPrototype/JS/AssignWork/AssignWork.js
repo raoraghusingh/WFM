@@ -231,7 +231,7 @@ function UpdateAssignedWork() {
 
     }).get();
 
-    assignworkdetails.CompanyName = $("#ddlcompanyname").val();
+    assignworkdetails.CompanyID = $("#ddlcompanyname").val();
     assignworkdetails.WorkerName = $("#ddlworkername").val();
     assignworkdetails.ShiftName = $("#ddlshift").val();
     //  assignworkdetails.Checklist = $("#chkchecklist").val();

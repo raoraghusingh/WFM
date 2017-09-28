@@ -11,6 +11,7 @@ namespace WFMPrototype.Controllers
     public class CompanyController : Controller
     {
         // GET: Company
+        [CheckSession]
         public ActionResult Index()
         {
             return View();
@@ -47,7 +48,7 @@ namespace WFMPrototype.Controllers
                         companyentity.City = companydetails.City;
                         companyentity.OrgID = SessionInfo.OrgID;
                         companyentity.ModifyBy = SessionInfo.Username;
-                        companydetails.IsActive = true;
+                        companyentity.IsActive = true;
                         companyentity.ModifyDate = System.DateTime.Today.AddHours(5).ToShortDateString();
                         db.SubmitChanges();
                         return Json("3", JsonRequestBehavior.AllowGet);
@@ -73,7 +74,7 @@ namespace WFMPrototype.Controllers
                         companyentity.City = companydetails.City;
                         companyentity.OrgID = SessionInfo.OrgID;
                         companyentity.ModifyBy = SessionInfo.Username;
-                        companydetails.IsActive = true;
+                        companyentity.IsActive = true;
                         companyentity.ModifyDate = System.DateTime.Today.AddHours(5).ToShortDateString();
                         db.tbl_companies.InsertOnSubmit(companyentity);
                         db.SubmitChanges();

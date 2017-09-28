@@ -13,6 +13,7 @@ namespace WFMPrototype.Controllers
     public class WorkerController : Controller
     {
         // GET: Worker
+        [CheckSession]
         public ActionResult Index()
         {
             return View();

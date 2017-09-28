@@ -12,6 +12,7 @@ namespace WFMPrototype.Controllers
     public class OrganizationController : Controller
     {
         // GET: Organization
+        [CheckSession]
         [Route("Manage-Organization")]
         public ActionResult Index()
         {

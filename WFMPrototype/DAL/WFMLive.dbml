@@ -190,24 +190,6 @@
       <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.tbl_tickets" Member="tbl_tickets">
-    <Type Name="tbl_ticket">
-      <Column Name="TicketID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="CompanyEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
-      <Column Name="Mobile" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="Type" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="Image" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Ccomments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="OrgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ModifyBy" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="ModifyDate" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tbl_worker" Member="tbl_workers">
     <Type Name="tbl_worker">
       <Column Name="WorkerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -230,6 +212,26 @@
       <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.tbl_tickets" Member="tbl_tickets">
+    <Type Name="tbl_ticket">
+      <Column Name="TicketID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CompanyEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Ccomments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifyBy" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="ModifyDate" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AssignWorkerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.Deactivecompany" Method="Deactivecompany">
     <Parameter Name="companyid" Type="System.Int32" DbType="Int" />
     <Parameter Name="orgid" Type="System.Int32" DbType="Int" />
@@ -246,6 +248,38 @@
       <Column Name="Checklist" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="WorkTime" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="WorkInterVal" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAssignedWorkData" Method="GetAssignedWorkData">
+    <Parameter Name="OrgId" Parameter="orgId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetAssignedWorkDataResult">
+      <Column Name="WorkerID" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="WorkerName" Type="System.String" DbType="NVarChar(62)" CanBeNull="true" />
+      <Column Name="ShiftName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Checklist" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetDailyReportingData" Method="GetDailyReportingData">
+    <Parameter Name="OrgId" Parameter="orgId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetDailyReportingDataResult">
+      <Column Name="WorkerID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WorkerName" Type="System.String" DbType="NVarChar(62)" CanBeNull="true" />
+      <Column Name="ShiftName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Checklist" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetLostFoundData" Method="GetLostFoundData">
+    <Parameter Name="OrgId" Parameter="orgId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetLostFoundDataResult">
+      <Column Name="LostFoundID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="companyname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WorkerName" Type="System.String" DbType="NVarChar(62)" CanBeNull="true" />
+      <Column Name="itemname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="comments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="date" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

@@ -11,6 +11,7 @@ namespace WFMPrototype.Controllers
     public class AssignWorkController : Controller
     {
         // GET: AssignWork
+        [CheckSession]
         public ActionResult Index()
         {
             return View();
@@ -81,7 +82,7 @@ namespace WFMPrototype.Controllers
                 using (var db = new WFMLiveDataContext())
                 {
 
-                    AssignedWorkData = db.tbl_assignworks.Where(a => a.WorkerName == WorkerID && a.OrgID == SessionInfo.OrgID).FirstOrDefault();
+                    AssignedWorkData = db.tbl_assignworks.Where(a => a.WorkerName == WorkerID && a.OrgID == SessionInfo.OrgID && a.IsActive==true).FirstOrDefault();
 
                 }
 
@@ -100,10 +101,11 @@ namespace WFMPrototype.Controllers
             {
                 using (var db = new WFMLiveDataContext())
                 {
-                    tbl_assignwork Obj = new tbl_assignwork();
-                    Obj = db.tbl_assignworks.Where(a => a.WorkerName == WorkerID && a.OrgID == SessionInfo.OrgID).First();
-                    Obj.IsActive = false;
-                    db.SubmitChanges();
+                    foreach(var updateentity in db.tbl_assignworks.Where(a => a.WorkerName == WorkerID && a.OrgID == SessionInfo.OrgID && a.IsActive==true).ToList())
+                    {
+                        updateentity.IsActive = false;
+                        db.SubmitChanges();
+                    }
                     /* tbl_assignwork supervisorentity = db.tbl_assignworks.Single(a => a.AssignWorkID == assignworkdetails.AssignWorkID && a.OrgID == SessionInfo.OrgID);
                      tbl_assignwork assignworkentity = new tbl_assignwork();
                      assignworkentity.CompanyName = assignworkdetails.CompanyName;
@@ -205,11 +207,11 @@ namespace WFMPrototype.Controllers
                 {
                     var Workers = from a in new WFMLiveDataContext().tbl_workers
                                   where a.IsActive == true && a.OrgID == SessionInfo.OrgID
-                                  select new { a.FirstName,a.WorkerID };
+                                  select new { Name=a.FirstName+" "+a.MiddleName+" "+a.LastName,a.WorkerID };
                     WorkerList = Workers.AsEnumerable()
                           .Select(o => new tbl_worker
                           {
-                              FirstName= o.FirstName,
+                              FirstName= o.Name,
                               WorkerID=o.WorkerID
                           }).ToList();
 

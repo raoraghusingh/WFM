@@ -12,6 +12,7 @@ namespace WFMPrototype.Controllers
     public class SupervisorController : Controller
     {
         // GET: Supervisor
+        [CheckSession]
         public ActionResult Index()
         {
             return View();
@@ -41,7 +42,7 @@ namespace WFMPrototype.Controllers
                     supervisorentity.State = supervisordetails.State;
                     supervisorentity.City = supervisordetails.City;
                     supervisorentity.ParmanentAddress = supervisordetails.ParmanentAddress;
-                    supervisorentity.CurrentAddress = supervisordetails.CurrentAddress;
+                    supervisorentity.CurrentAddress = supervisordetails.CurrentAddress;          
                     
                      /*   HttpFileCollectionBase files = Request.Files;
                         HttpPostedFileBase file = files[0];

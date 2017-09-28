@@ -11,6 +11,7 @@ namespace WFMPrototype.Controllers
     public class ShiftController : Controller
     {
         // GET: Shift
+        [CheckSession]
         public ActionResult Index()
         {
             return View();

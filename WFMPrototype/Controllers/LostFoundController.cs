@@ -11,6 +11,7 @@ namespace WFMPrototype.Controllers
     public class LostFoundController : Controller
     {
         // GET: LostFound
+        [CheckSession]
         public ActionResult Index()
         {
             return View();
@@ -50,23 +51,18 @@ namespace WFMPrototype.Controllers
         [CheckSession]
         public ActionResult LostFoundList()
         {
-            dynamic LostFoundList = null;
+            List<GetLostFoundDataResult> lst = new List<DAL.GetLostFoundDataResult>();
             try
             {
                 using (var db = new WFMLiveDataContext())
                 {
-
-                    LostFoundList = db.tbl_lostfounds.Where(a => a.IsActive == true && a.OrgID == SessionInfo.OrgID).ToList();
-
+                    lst = db.GetLostFoundData(SessionInfo.OrgID).ToList();
                 }
 
             }
+            catch (Exception ex) { }
 
-            catch (Exception ex)
-            {
-
-            }
-            return Json(LostFoundList, JsonRequestBehavior.AllowGet);
+            return Json(lst, JsonRequestBehavior.AllowGet);
         }
 
         [CheckSession]

@@ -45,7 +45,7 @@
                 else {
                     $.alert({
                         title: '',
-                        content: 'Some thing went wrong. please try after sometime!',
+                        content: 'Something went wrong. please try after sometime!',
                         type: 'red',
                     });
                 }
@@ -141,8 +141,7 @@ function BindChecklist() {
         data: "",
         cache: false,
         success: function (data) {
-            
-            debugger;
+         
             $('#tblchecklist').DataTable().destroy();
             $("#tblchecklist tbody").empty();
 
@@ -150,7 +149,7 @@ function BindChecklist() {
             var firstworkname = '';
             var workname = '';
             var count = 0;
-            for (var i = 0; i < data.length; i)
+            for (var i = 0; i < data.length; i++)
             {
                 var returnedData = $.grep(data, function (element, index) {
                     return element.workname == data[i].workname;

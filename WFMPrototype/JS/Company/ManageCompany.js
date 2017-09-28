@@ -24,9 +24,10 @@
                 if (data == 1) {
                     $.alert({
                         title: '',
-                        content: 'Comapny details saved successfully!',
+                        content: 'Company details saved successfully!',
                         type:'green',
                     });
+                    LoadCompany();
                 }
                 else if (data == 2) {
                     $.alert({
@@ -41,11 +42,12 @@
                         content: 'Company details updated successfully!',
                         type: 'green',
                     });
+                    LoadCompany();
                 }
                 else {
                     $.alert({
                         title: '',
-                        content: 'Some thing went wrong. please try after sometime!',
+                        content: 'Something went wrong. please try after sometime!',
                         type: 'red',
                     });
                 }

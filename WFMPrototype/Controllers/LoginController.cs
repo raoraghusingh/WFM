@@ -22,7 +22,7 @@ namespace WFMPrototype.Controllers
         public ActionResult Index(LoginModel Objlogin)
         {
 
-            if (Objlogin.Username == "superadmin@transpire.com" && Objlogin.Password == "123" && Objlogin.OrginizationID == 0)
+            if (Objlogin.Username == "superadmin@transpiregs.com" && Objlogin.Password == "123456" && Objlogin.OrginizationID == 0)
             {
                 Response.Cookies["OrgID"].Value = Convert.ToString(Objlogin.OrginizationID);
                 Response.Cookies["Username"].Value = Objlogin.Username;

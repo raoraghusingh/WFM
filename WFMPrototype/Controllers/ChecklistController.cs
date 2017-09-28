@@ -12,6 +12,7 @@ namespace WFMPrototype.Controllers
     {
         // GET: Checklist
         //[Route("Manage-Checklist")]
+        [CheckSession]
         public ActionResult Index()
         {
 

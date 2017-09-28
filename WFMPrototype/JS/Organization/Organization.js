@@ -104,8 +104,9 @@ $(document).ready(function () {
 
             },
             ddlstate: "Please select state",
-            ddlcity: "Please select state",
-            ddlGender: "Please select Gender",
+            ddlcity: "Please select city",
+            ddlGender: "Please select gender",
+            txtDesignation:"Please enter designation"
         }
     });
 

@@ -11,6 +11,7 @@ namespace WFMPrototype.Controllers
     public class TicketFeedbackController : Controller
     {
         // GET: TicketFeedback
+        [CheckSession]
         public ActionResult Index()
         {
             return View();
@@ -33,7 +34,7 @@ namespace WFMPrototype.Controllers
                     ticketfeedbackentity.Type = TicketFeedbackdetails.Type;
                     ticketfeedbackentity.Ccomments = TicketFeedbackdetails.Ccomments;
                     ticketfeedbackentity.Image = TicketFeedbackdetails.Image;
-
+                    ticketfeedbackentity.Status = 1;
                     /*   HttpFileCollectionBase files = Request.Files;
                        HttpPostedFileBase file = files[0];
                        string fname;

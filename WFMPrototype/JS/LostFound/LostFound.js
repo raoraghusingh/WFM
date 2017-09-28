@@ -101,11 +101,11 @@ function LoadLostFound() {
             $.each(data, function (index, value) {
                 tabledatabody += '<tr>';
 
-                tabledatabody += ' <td>' + value.CompanyName + '</td>';
-                tabledatabody += ' <td>' + value.FounderName + '</td>';
-                tabledatabody += ' <td>' + value.ItemName + '</td>';
-                tabledatabody += ' <td>' + value.Comments + '</td>';
-                tabledatabody += ' <td>' + value.Date + '</td>';              
+                tabledatabody += ' <td>' + value.companyname + '</td>';
+                tabledatabody += ' <td>' + value.WorkerName + '</td>';
+                tabledatabody += ' <td>' + value.itemname + '</td>';
+                tabledatabody += ' <td>' + value.comments + '</td>';
+                tabledatabody += ' <td>' + value.date + '</td>';              
                 tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditLostFound(' + value.LostFoundID + ')> <i class="glyphicon glyphicon-edit"></i></a></td>';
                 tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveLostFound(' + value.LostFoundID + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
                 tabledatabody += ' </tr>';
@@ -128,7 +128,7 @@ function LoadLostFound() {
 
 function EditLostFound(LostFoundID) {
     $("#hdnlostfound").val(1);
-    $("#hdnlostfoundID").val(LostFoundID)
+    $("#hdnlostfoundID").val(LostFoundID);
     $('#AddLostFound').trigger('click');
     $("#spantext").text("Edit Lost/Found");
     $.ajax({
@@ -149,10 +149,11 @@ function UpdateLostFound() {
     var lostfounddetails = {};
 
     lostfounddetails.CompanyID = $("#ddlcompanyname").val();
-    lostfounddetails.FounderName = $("#ddlworkername option:selected").text();
+    lostfounddetails.FounderName = $("#ddlworkername").val();
     lostfounddetails.ItemName = $("#txtitem").val();
     lostfounddetails.Comments = $("#txtcomments").val();
     lostfounddetails.Date = $("#txtdate").val();
+    lostfounddetails.LostFoundID = $("#hdnlostfoundID").val();
     $.ajax({
         type: "POST",
         url: "LostFound/UpdateLostFound",
@@ -191,7 +192,7 @@ function UpdateLostFound() {
 }
 
 function RemoveLostFound(LostFoundID) {
-
+    debugger;
 
     $.ajax({
         type: "GET",

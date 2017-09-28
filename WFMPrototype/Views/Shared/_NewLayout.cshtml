@@ -95,10 +95,10 @@
                         <!-- Messages: style can be found in dropdown.less-->
                         <!-- Notifications: style can be found in dropdown.less -->
                         <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
                                 <span class="label label-warning">10</span>
-                            </a>
+                            </a>*@
                             <ul class="dropdown-menu">
                                 <li class="header">You have 10 notifications</li>
                                 <li>
@@ -139,16 +139,16 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Alexander Pierce</span>
+                                <img src="/dist/img/richan.PNG" class="user-image" alt="User Image">
+                                <span class="hidden-xs">Richan Jaypal</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    <img src="/dist/img/richan.PNG" class="img-circle" alt="User Image">
                                     <p>
-                                        Suraj - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        Richan Jaypal
+                                        <small>Founder-www.sirrichan.com</small>
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
@@ -158,7 +158,7 @@
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="@Url.Action("Logout","Dashboard")" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -176,11 +176,11 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="~/dist/img/SR.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Sej Yadav</p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        <p>www.sirrichan.com</p>
+                        @*<a href="#"><i class="fa fa-circle text-success"></i> Online</a>*@
                     </div>
                 </div>
                 <!-- search form -->
@@ -208,63 +208,70 @@
                     </li>
                     <li>
                         <a href="./Company">
-                            <i class="fa fa-th"></i> <span>Create Company</span>
+                            <i class="fa fa-home"></i> <span>Create Company</span>
 
 
                         </a>
                     </li>
                     <li>
                         <a href="./Shift">
-                            <i class="fa fa-th"></i> <span>Add Shift</span>
+                            <i class="fa fa-user-times"></i> <span>Add Shift</span>
 
 
                         </a>
                     </li>
                     <li>
                         <a href="./Checklist">
-                            <i class="fa fa-th"></i> <span>Create Checklist</span>
+                            <i class="fa fa-bookmark"></i> <span>Create Checklist</span>
 
 
                         </a>
                     </li>
                     <li>
                         <a href="./Supervisor">
-                            <i class="fa fa-th"></i> <span>Add Supervisor</span>
+                            <i class="fa fa-address-book"></i> <span>Add Supervisor</span>
 
 
                         </a>
                     </li>
                     <li>
                         <a href="./Worker">
-                            <i class="fa fa-th"></i> <span>Add Labor</span>
+                            <i class="fa fa-address-card-o"></i> <span>Add Worker</span>
 
 
                         </a>
                     </li>
                     <li>
                         <a href="./AssignWork">
-                            <i class="fa fa-th"></i> <span>Assign Work</span>
+                            <i class="fa fa-user-times"></i> <span>Assign Work</span>
 
 
                         </a>
                     </li>
                     <li>
                         <a href="./AssignSupervisor">
-                            <i class="fa fa-th"></i> <span>Assign Supervisor</span>
+                            <i class="fa fa-male"></i> <span>Assign Supervisor</span>
 
 
                         </a>
                     </li>
                     <li>
                         <a href="./LostFound">
-                            <i class="fa fa-th"></i> <span>Lost/Found</span>
+                            <i class="fa fa-foursquare"></i> <span>Lost/Found</span>
+
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./TicketFeedback">
+                            <i class="fa fa-tablet"></i> <span>Raise Ticket/Feedback</span>
 
 
                         </a>
                     </li>
                     <li>
                         <a href="./DailyReporting">
-                            <i class="fa fa-th"></i> <span>Daily Reporting</span>
+                            <i class="fa fa-sticky-note"></i> <span>Daily Reporting</span>
 
 
                         </a>

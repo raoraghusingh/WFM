@@ -11,6 +11,7 @@ namespace WFMPrototype.Controllers
     public class DailyReportingController : Controller
     {
         // GET: DailyReporting
+        [CheckSession]
         public ActionResult Index()
         {
             return View();
@@ -83,7 +84,7 @@ namespace WFMPrototype.Controllers
                 using (var db = new WFMLiveDataContext())
                 {
 
-                    DailyReportingData = db.tbl_dailyreportings.Where(a => a.WorkerName == WorkerID && a.OrgID == SessionInfo.OrgID && a.Date== date).FirstOrDefault();
+                    DailyReportingData = db.tbl_dailyreportings.Where(a => a.WorkerName == WorkerID && a.OrgID == SessionInfo.OrgID && a.Date== date && a.IsActive==true).FirstOrDefault();
 
                 }
 
@@ -96,24 +97,34 @@ namespace WFMPrototype.Controllers
         }
         [HttpPost]
         [CheckSession]
-        public void UpdateDailyReporting(tbl_dailyreporting dailyreportingdetails)
+        public void UpdateDailyReporting(string WorkerID, tbl_dailyreporting dailyreportingdetails, Array checklistobj)
         {
             try
             {
                 using (var db = new WFMLiveDataContext())
                 {
-                    tbl_dailyreporting dailyreportingentity = db.tbl_dailyreportings.Single(a => a.DailyReportingID == dailyreportingdetails.DailyReportingID && a.OrgID == SessionInfo.OrgID);
-              
-                    dailyreportingentity.CompanyName = dailyreportingdetails.CompanyName;
-                    dailyreportingentity.WorkerName = dailyreportingdetails.WorkerName;
-                    dailyreportingentity.ShiftName = dailyreportingdetails.ShiftName;
-                    dailyreportingentity.Checklist = dailyreportingdetails.Checklist;
-                    dailyreportingentity.Date = dailyreportingdetails.Date;
-                    dailyreportingentity.IsActive = true;
-                    dailyreportingentity.OrgID = SessionInfo.OrgID;
-                    dailyreportingentity.ModifyBy = SessionInfo.Username;
-                    dailyreportingentity.ModifyDate = System.DateTime.Today.AddHours(5).ToShortDateString();
-                    db.SubmitChanges();
+                    foreach (var updateentity in db.tbl_dailyreportings.Where(a => a.WorkerName == WorkerID && a.OrgID == SessionInfo.OrgID && a.IsActive==true).ToList())
+                    {
+                        updateentity.IsActive = false;
+                        db.SubmitChanges();
+                    }
+                    for (int i = 0; i < checklistobj.Length; i++)
+                    {
+                        tbl_dailyreporting dailyreportingentity = new tbl_dailyreporting();
+                        //  assignworkentity.CompanyName = assignworkdetails.CompanyName;
+                        dailyreportingentity.CompanyID = dailyreportingdetails.CompanyID;
+                        dailyreportingentity.WorkerName = dailyreportingdetails.WorkerName;
+                        dailyreportingentity.ShiftName = dailyreportingdetails.ShiftName;
+                        dailyreportingentity.Checklist = Convert.ToString(checklistobj.GetValue(i));
+                        dailyreportingentity.Date = Convert.ToString(dailyreportingdetails.Date);
+
+                        dailyreportingentity.IsActive = true;
+                        dailyreportingentity.OrgID = SessionInfo.OrgID;
+                        dailyreportingentity.ModifyBy = SessionInfo.Username;
+                        dailyreportingentity.ModifyDate = System.DateTime.Today.AddHours(5).ToShortDateString();
+                        db.tbl_dailyreportings.InsertOnSubmit(dailyreportingentity);
+                        db.SubmitChanges();
+                    }
 
                 }
 
@@ -185,11 +196,11 @@ namespace WFMPrototype.Controllers
                 {
                     var Workers = from a in new WFMLiveDataContext().tbl_workers
                                   where a.IsActive == true && a.OrgID == SessionInfo.OrgID
-                                  select new { a.FirstName, a.WorkerID };
+                                  select new { Name = a.FirstName + " " + a.MiddleName + " " + a.LastName, a.WorkerID };
                     WorkerList = Workers.AsEnumerable()
                           .Select(o => new tbl_worker
                           {
-                              FirstName = o.FirstName,
+                              FirstName = o.Name,
                               WorkerID = o.WorkerID
                           }).ToList();
 
