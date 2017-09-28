@@ -209,6 +209,9 @@
     <Content Include="dist\img\richan.PNG" />
     <Content Include="dist\img\SR.png" />
     <Content Include="dist\img\transpire.png" />
+
+    <Content Include="JS\AssignSupervisor\AssignSupervisor.js" />
+
     <Content Include="JS\AssignWork\AssignWork.js" />
     <Content Include="JS\CheckList\Checklist.js" />
     <Content Include="JS\Company\ManageCompany.js" />
@@ -370,7 +373,11 @@
     <Content Include="Views\TicketFeedback\Index.cshtml" />
     <Content Include="Views\Checklist\Index.cshtml" />
     <Content Include="Views\Worker\Index.cshtml" />
+
     <Content Include="Views\DailyReporting\Index.cshtml" />
+
+    <Content Include="Views\AssignSupervisor\Index.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
