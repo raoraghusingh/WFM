@@ -209,9 +209,8 @@
     <Content Include="dist\img\richan.PNG" />
     <Content Include="dist\img\SR.png" />
     <Content Include="dist\img\transpire.png" />
-
+    <Content Include="dist\img\under-maintenance.png" />
     <Content Include="JS\AssignSupervisor\AssignSupervisor.js" />
-
     <Content Include="JS\AssignWork\AssignWork.js" />
     <Content Include="JS\CheckList\Checklist.js" />
     <Content Include="JS\Company\ManageCompany.js" />
@@ -221,6 +220,7 @@
     <Content Include="JS\Shift\Shift.js" />
     <Content Include="JS\Supervisor\Supervisor.js" />
     <Content Include="JS\TicketFeedback\TicketFeedback.js" />
+    <Content Include="JS\Ticket\Ticket.js" />
     <Content Include="JS\Worker\Worker.js" />
     <Content Include="packages.config" />
     <Content Include="README.md" />
@@ -373,11 +373,10 @@
     <Content Include="Views\TicketFeedback\Index.cshtml" />
     <Content Include="Views\Checklist\Index.cshtml" />
     <Content Include="Views\Worker\Index.cshtml" />
-
     <Content Include="Views\DailyReporting\Index.cshtml" />
-
     <Content Include="Views\AssignSupervisor\Index.cshtml" />
-
+    <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\TicketHistory\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -583,6 +582,7 @@
     <Compile Include="Controllers\TicketFeedbackController.cs" />
     <Compile Include="Controllers\StockManagementController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\TicketHistoryController.cs" />
     <Compile Include="Controllers\WorkerController.cs" />
     <Compile Include="DAL\WFMLive.designer.cs">
       <AutoGen>True</AutoGen>
@@ -603,9 +603,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="dist\img\worker\" />
     <Folder Include="SupervisorIdProof\" />
-    <Folder Include="Views\AssignSupervisor\" />
     <Folder Include="Views\StockManagement\" />
-    <Folder Include="Views\Ticket\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

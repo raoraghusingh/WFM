@@ -187,7 +187,6 @@ function BindAssignSupervisor() {
                 });
             $("#tblassignsupervisor tbody").append(tabledatabody);
             $.fn.dataTable.ext.errMode = 'none';
-
             $('#tblassignsupervisor').DataTable({
                 responsive: {
                     details: {
@@ -195,13 +194,10 @@ function BindAssignSupervisor() {
                         target: -2
                     }
                 },
-                //columnDefs: [{
-                //    className: 'control',
-                //    orderable: false,
-                //    targets: -2
-                //}]
+
                 responsive: true
             });
+          
 
         }
     });

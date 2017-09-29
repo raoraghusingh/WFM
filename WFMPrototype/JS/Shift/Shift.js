@@ -110,14 +110,16 @@ function LoadShifts() {
             $("#tblshifts tbody").append(tabledatabody);
             $.fn.dataTable.ext.errMode = 'none';
             $('#tblshifts').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true
+                responsive: {
+                    details: {
+                        type: 'column',
+                        target: -2
+                    }
+                },
+
+                responsive: true
             });
+           
         }
     });
 }

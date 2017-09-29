@@ -153,11 +153,7 @@ function LoadCompany() {
                         target: -2
                     }
                 },
-                //columnDefs: [{
-                //    className: 'control',
-                //    orderable: false,
-                //    targets: -2
-                //}]
+                
                 responsive: true
             });
            
