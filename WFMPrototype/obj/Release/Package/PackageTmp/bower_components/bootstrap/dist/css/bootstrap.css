@@ -9,6 +9,76 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
+
+#mydiv {
+  height: 400px;
+  position: relative;
+  background-color: gray; /* for demonstration */
+}
+.ajax-loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -32px; /* -1 * image width / 2 */
+  margin-top: -32px; /* -1 * image height / 2 */
+}
+
+.spinner {
+    
+ border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+input.error
+{
+    border:1px solid red !important;
+}
+
+input.valid
+{
+    border:2px solid green !important;
+}
+textarea.error
+{
+    border:1px solid red !important;
+}
+
+textarea.valid
+{
+    border:2px solid green !important;
+}
+label.error
+{
+    
+    color:red;
+}
+.field-validation-error
+{
+    color:red;
+    font-weight:initial;
+}
+.input-validation-error
+{
+    border:1px solid red !important;
+}
+.valid
+{
+    border:1px solid green !important;
+}
 body {
   margin: 0;
 }

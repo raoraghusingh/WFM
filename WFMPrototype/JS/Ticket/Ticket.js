@@ -87,7 +87,7 @@ function LoadAllTicket() {
                 responsive: true
             });
             setTimeout(function () {
-                debugger;
+             
                 for (var i = 0; i < asssigtickewithworkid.length; i++) {
                     $("#" + asssigtickewithworkid[i].ticketid).val(asssigtickewithworkid[i].workerid);
                     $("#" + asssigtickewithworkid[i].ticketid).prop("disabled", true);
