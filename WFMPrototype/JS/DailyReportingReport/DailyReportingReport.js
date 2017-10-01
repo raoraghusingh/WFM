@@ -1,6 +1,6 @@
 ﻿$.validator.setDefaults({
     submitHandler: function () {
-        LoadAssignedWork();
+        LoadDailyReporting();
 
     }
 });
@@ -9,7 +9,7 @@
 
 $(document).ready(function () {
 
-    $("#workassignmentreportform").validate({
+    $("#dailyreportingreportform").validate({
         rules: {
             txtfromdate: "required",
             txttodate: "required",
@@ -32,35 +32,39 @@ $(document).ready(function () {
 });
 
 function Cancel() {
-    $('#assignworkform')[0].reset();
+    $('#dailyreportingreportform')[0].reset();
 
 }
-function LoadAssignedWork() {
+
+
+
+function LoadDailyReporting() {
     $.ajax({
         type: "GET",
-        url: "WorkAssignmentReport/AssignedWorkList",
+        url: "DailyReportingReport/DailyReportingList",
         data: "",
         cache: false,
         success: function (data) {
 
-            $('#tblAssignedWork').DataTable().destroy();
-            $("#tblAssignedWork tbody").empty();
+            $('#tbldailyreportingreport').DataTable().destroy();
+            $("#tbldailyreportingreport tbody").empty();
 
             var tabledatabody = '';
             $.each(data, function (index, value) {
+
                 tabledatabody += '<tr>';
 
                 tabledatabody += ' <td>' + value.CompanyName + '</td>';
                 tabledatabody += ' <td>' + value.WorkerName + '</td>';
                 tabledatabody += ' <td>' + value.ShiftName + '</td>';
                 tabledatabody += ' <td>' + value.Checklist + '</td>';
-
-
+                tabledatabody += ' <td>' + value.Date + '</td>';
+              
                 tabledatabody += ' </tr>';
             });
-            $("#tblAssignedWork tbody").append(tabledatabody);
+            $("#tbldailyreportingreport tbody").append(tabledatabody);
             $.fn.dataTable.ext.errMode = 'none';
-            $('#tblAssignedWork').DataTable({
+            $('#tbldailyreportingreport').DataTable({
                 responsive: {
                     details: {
                         type: 'column',
@@ -78,9 +82,6 @@ function LoadAssignedWork() {
         }
     });
 }
-
-
-
 
 
 function BindCompany() {

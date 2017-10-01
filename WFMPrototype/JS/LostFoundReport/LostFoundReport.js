@@ -1,6 +1,6 @@
 ﻿$.validator.setDefaults({
     submitHandler: function () {
-        LoadAssignedWork();
+        LoadLostFound();
 
     }
 });
@@ -9,7 +9,7 @@
 
 $(document).ready(function () {
 
-    $("#workassignmentreportform").validate({
+    $("#LostFoundreportform").validate({
         rules: {
             txtfromdate: "required",
             txttodate: "required",
@@ -32,35 +32,34 @@ $(document).ready(function () {
 });
 
 function Cancel() {
-    $('#assignworkform')[0].reset();
+    $('#LostFoundreportform')[0].reset();
 
 }
-function LoadAssignedWork() {
+function LoadLostFound() {
     $.ajax({
         type: "GET",
-        url: "WorkAssignmentReport/AssignedWorkList",
+        url: "LostFoundReport/LostFoundList",
         data: "",
         cache: false,
         success: function (data) {
 
-            $('#tblAssignedWork').DataTable().destroy();
-            $("#tblAssignedWork tbody").empty();
+            $('#tbllostfoundreport').DataTable().destroy();
+            $("#tbllostfoundreport tbody").empty();
 
             var tabledatabody = '';
             $.each(data, function (index, value) {
                 tabledatabody += '<tr>';
 
-                tabledatabody += ' <td>' + value.CompanyName + '</td>';
+                tabledatabody += ' <td>' + value.companyname + '</td>';
                 tabledatabody += ' <td>' + value.WorkerName + '</td>';
-                tabledatabody += ' <td>' + value.ShiftName + '</td>';
-                tabledatabody += ' <td>' + value.Checklist + '</td>';
-
-
+                tabledatabody += ' <td>' + value.itemname + '</td>';
+                tabledatabody += ' <td>' + value.comments + '</td>';
+                tabledatabody += ' <td>' + value.date + '</td>';              
                 tabledatabody += ' </tr>';
             });
-            $("#tblAssignedWork tbody").append(tabledatabody);
+            $("#tbllostfoundreport tbody").append(tabledatabody);
             $.fn.dataTable.ext.errMode = 'none';
-            $('#tblAssignedWork').DataTable({
+            $('#tbllostfoundreport').DataTable({
                 responsive: {
                     details: {
                         type: 'column',
@@ -78,8 +77,6 @@ function LoadAssignedWork() {
         }
     });
 }
-
-
 
 
 

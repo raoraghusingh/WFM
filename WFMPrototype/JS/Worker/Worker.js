@@ -212,7 +212,7 @@ function LoadAllworker() {
             $.each(data, function (index, value) {
                 tabledatabody += '<tr>';
                 tabledatabody += ' <td>' + (value.FirstName + " " + value.MiddleName + " " + value.LastName) + '</td>';
-                tabledatabody += ' <td>' + value.FathreName + '</td>';
+                tabledatabody += ' <td>' + value.FatherName + '</td>';
                 tabledatabody += ' <td>' + value.EmailID + '</td>';
                 tabledatabody += ' <td>' + value.Mobile + '</td>';
                 tabledatabody += ' <td>' + value.ParmanentAddress + '</td>';
@@ -326,7 +326,7 @@ function EditWorkder(WorkderID) {
             $("#txtfirstname").val(data.FirstName);
             $("#txtmiddle").val(data.MiddleName);
             $("#txtlastname").val(data.LastName);
-            $("#txtfathername").val(data.FathreName);
+            $("#txtfathername").val(data.FatherName);
             $("#txtusername").val(data.EmailID);
             $("#txtworkermobile").val(data.Mobile);
             $("#txtcurrentaddress").val(data.CurrentAddress);

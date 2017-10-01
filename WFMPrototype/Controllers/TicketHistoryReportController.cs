@@ -52,7 +52,7 @@ namespace WFMPrototype.Controllers
             {
                 using (var db = new WFMLiveDataContext())
                 {
-                    alllist = db.tbl_tickets.Where(a => a.OrgID == SessionInfo.OrgID && a.Status == 1 || a.Status == 2 && a.Type == "Complain").ToList();
+                    alllist = db.tbl_tickets.Where(a => a.OrgID == SessionInfo.OrgID && (a.Status == 1 || a.Status == 2) && a.Type == "Complain").ToList();
                 }
 
             }

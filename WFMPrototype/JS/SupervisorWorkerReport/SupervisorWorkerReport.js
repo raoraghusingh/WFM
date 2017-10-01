@@ -1,6 +1,6 @@
 ﻿$.validator.setDefaults({
     submitHandler: function () {
-        LoadAssignedWork();
+        LoadSupervisors();
 
     }
 });
@@ -9,18 +9,17 @@
 
 $(document).ready(function () {
 
-    $("#workassignmentreportform").validate({
+    $("#supervisorworkerreportform").validate({
         rules: {
-            txtfromdate: "required",
-            txttodate: "required",
+          
+          
             ddlcompanyname: "required",
+            ddlusertype: "required",
 
         },
-        messages: {
-            txtfromdate: "Please choose from date",
-            txttodate: "Please choose to date",
+        messages: {         
             ddlcompanyname: "Please select company name",
-
+            ddlusertype: "Please Select user type",
 
         }
     });
@@ -32,35 +31,41 @@ $(document).ready(function () {
 });
 
 function Cancel() {
-    $('#assignworkform')[0].reset();
+    $('#supervisorworkerreportform')[0].reset();
 
 }
-function LoadAssignedWork() {
+function LoadSupervisors() {
     $.ajax({
         type: "GET",
-        url: "WorkAssignmentReport/AssignedWorkList",
-        data: "",
+        url: "SupervisorWorkerReport/SupervisorWorkerList",
+        data: {UserType:$('#ddlusertype').val()},
         cache: false,
         success: function (data) {
 
-            $('#tblAssignedWork').DataTable().destroy();
-            $("#tblAssignedWork tbody").empty();
+            $('#tblsupervisorworkerreport').DataTable().destroy();
+            $("#tblsupervisorworkerreport tbody").empty();
 
             var tabledatabody = '';
             $.each(data, function (index, value) {
                 tabledatabody += '<tr>';
 
-                tabledatabody += ' <td>' + value.CompanyName + '</td>';
-                tabledatabody += ' <td>' + value.WorkerName + '</td>';
-                tabledatabody += ' <td>' + value.ShiftName + '</td>';
-                tabledatabody += ' <td>' + value.Checklist + '</td>';
-
-
+                tabledatabody += ' <td>' + value.FirstName + '</td>';
+                tabledatabody += ' <td>' + value.MiddleName + '</td>';
+                tabledatabody += ' <td>' + value.LastName + '</td>';               
+                tabledatabody += ' <td>' + value.FatherName + '</td>';            
+                tabledatabody += ' <td>' + value.EmailID + '</td>';      
+                tabledatabody += ' <td>' + value.Mobile + '</td>';
+                tabledatabody += ' <td>' + value.Gender + '</td>';
+                tabledatabody += ' <td>' + value.State + '</td>';
+                tabledatabody += ' <td>' + value.City + '</td>';
+                tabledatabody += ' <td>' + value.ParmanentAddress + '</td>';
+                tabledatabody += ' <td>' + value.CurrentAddress + '</td>';
+                tabledatabody += ' <td>' + value.IDProof + '</td>';              
                 tabledatabody += ' </tr>';
             });
-            $("#tblAssignedWork tbody").append(tabledatabody);
+            $("#tblsupervisorworkerreport tbody").append(tabledatabody);
             $.fn.dataTable.ext.errMode = 'none';
-            $('#tblAssignedWork').DataTable({
+            $('#tblsupervisorworkerreport').DataTable({
                 responsive: {
                     details: {
                         type: 'column',
@@ -81,13 +86,11 @@ function LoadAssignedWork() {
 
 
 
-
-
 function BindCompany() {
 
     $.ajax({
         type: "GET",
-        url: "WorkAssignmentReport/CompanyList",
+        url: "SupervisorWorkerReport/CompanyList",
         data: "",
         cache: false,
         success: function (data) {

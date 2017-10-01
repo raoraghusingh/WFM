@@ -44,5 +44,30 @@ namespace WFMPrototype.Controllers
             }
             return Json(CompanyList, JsonRequestBehavior.AllowGet);
         }
+        [CheckSession]
+        public ActionResult SupervisorWorkerList(string UserType)
+        {
+            dynamic SupervisorWorkerList = null;
+            try
+            {
+                using (var db = new WFMLiveDataContext())
+                {
+                    if (UserType == "1")
+                    {
+                      SupervisorWorkerList = db.tbl_supervisors.Where(a => a.IsActive == true && a.OrgID == SessionInfo.OrgID).ToList();
+                    }
+                    else { 
+                    SupervisorWorkerList = db.tbl_workers.Where(a => a.IsActive == true && a.OrgID == SessionInfo.OrgID).ToList();
+                    }
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+
+            }
+            return Json(SupervisorWorkerList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

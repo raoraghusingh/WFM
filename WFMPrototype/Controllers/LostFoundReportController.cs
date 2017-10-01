@@ -44,5 +44,22 @@ namespace WFMPrototype.Controllers
             }
             return Json(CompanyList, JsonRequestBehavior.AllowGet);
         }
+
+        [CheckSession]
+        public ActionResult LostFoundList()
+        {
+            List<GetLostFoundDataResult> lst = new List<DAL.GetLostFoundDataResult>();
+            try
+            {
+                using (var db = new WFMLiveDataContext())
+                {
+                    lst = db.GetLostFoundData(SessionInfo.OrgID).ToList();
+                }
+
+            }
+            catch (Exception ex) { }
+
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -88,7 +88,7 @@ namespace WFMPrototype.Controllers
                         Newentry.ParmanentAddress = Convert.ToString(Request.Form["paremanetaddress"]);
                         Newentry.CurrentAddress = Convert.ToString(Request.Form["currentaddress"]);
                         Newentry.Gender = Convert.ToString(Request.Form["gender"]);
-                        Newentry.FathreName= Convert.ToString(Request.Form["father"]);
+                        Newentry.FatherName= Convert.ToString(Request.Form["father"]);
                         Newentry.State = Convert.ToString(Request.Form["state"]);
                         Newentry.City = Convert.ToString(Request.Form["city"]);
                         Newentry.ModifyBy = SessionInfo.Username;
@@ -114,7 +114,7 @@ namespace WFMPrototype.Controllers
                         workeentity.CurrentAddress = Convert.ToString(Request.Form["currentaddress"]);
                         workeentity.Gender = Convert.ToString(Request.Form["gender"]);
                         workeentity.State = Convert.ToString(Request.Form["state"]);
-                        workeentity.FathreName = Convert.ToString(Request.Form["father"]);
+                        workeentity.FatherName = Convert.ToString(Request.Form["father"]);
                         workeentity.City = Convert.ToString(Request.Form["city"]);
                         workeentity.ModifyBy = SessionInfo.Username;
                         workeentity.ModifyDate = System.DateTime.Now.AddDays(5).ToShortDateString();

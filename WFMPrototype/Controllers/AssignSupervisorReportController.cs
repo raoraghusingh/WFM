@@ -16,33 +16,28 @@ namespace WFMPrototype.Controllers
             return View();
         }
         [CheckSession]
-        public ActionResult CompanyList()
+        public JsonResult AssignSupervisorList()
         {
-            List<tbl_company> CompanyList = new List<tbl_company>();
-
+            dynamic Alllist = string.Empty;
             try
             {
                 using (var db = new WFMLiveDataContext())
                 {
-                    var Companies = from a in new WFMLiveDataContext().tbl_companies
-                                    where a.IsActive == true && a.OrgID == SessionInfo.OrgID
-                                    select new { a.CompanyName, a.CompanyID };
-                    CompanyList = Companies.AsEnumerable()
-                          .Select(o => new tbl_company
-                          {
-                              CompanyName = o.CompanyName,
-                              CompanyID = o.CompanyID
-                          }).ToList();
-
+                    Alllist = (from ass in db.tbl_assignsupervisors
+                               join temps in db.tbl_supervisors
+                                on Convert.ToInt32(ass.SupervisorName) equals temps.SupervisorID
+                               join tempc in db.tbl_companies on ass.CompanyID equals tempc.CompanyID
+                               join tems in db.tbl_shifts on Convert.ToInt32(ass.ShiftName) equals tems.ShiftID
+                               select new { Supervisorname = temps.FirstName + " " + temps.MiddleName + " " + temps.LastName, Companyname = tempc.CompanyName, Shiftname = tems.ShiftName, ass.AssignSupervisorID }).ToList();
+                   
                 }
 
             }
-
             catch (Exception ex)
             {
 
             }
-            return Json(CompanyList, JsonRequestBehavior.AllowGet);
+            return Json(Alllist, JsonRequestBehavior.AllowGet);
         }
     }
 }
