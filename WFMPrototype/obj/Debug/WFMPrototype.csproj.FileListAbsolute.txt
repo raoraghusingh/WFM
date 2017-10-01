@@ -78,7 +78,6 @@ F:\prototype\WFM\WFMPrototype\bin\System.Web.WebPages.Razor.xml
 F:\prototype\WFM\WFMPrototype\obj\Debug\WFMPrototype.csprojResolveAssemblyReference.cache
 F:\prototype\WFM\WFMPrototype\obj\Debug\WFMPrototype.dll
 F:\prototype\WFM\WFMPrototype\obj\Debug\WFMPrototype.pdb
-F:\ICE Projects\WFM\WFMPrototype\obj\Debug\WFMPrototype.csprojResolveAssemblyReference.cache
 F:\ICE Projects\WFM\WFMPrototype\bin\roslyn\csc.exe
 F:\ICE Projects\WFM\WFMPrototype\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 F:\ICE Projects\WFM\WFMPrototype\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -116,3 +115,4 @@ F:\ICE Projects\WFM\WFMPrototype\bin\System.Web.WebPages.xml
 F:\ICE Projects\WFM\WFMPrototype\bin\System.Web.WebPages.Deployment.xml
 F:\ICE Projects\WFM\WFMPrototype\obj\Debug\WFMPrototype.dll
 F:\ICE Projects\WFM\WFMPrototype\obj\Debug\WFMPrototype.pdb
+F:\ICE Projects\WFM\WFMPrototype\obj\Debug\WFMPrototype.csprojResolveAssemblyReference.cache

@@ -49,6 +49,7 @@
                             content: 'worker saved successfully!',
                             type: 'green',
                         });
+                        LoadAllworker();
                     }
                     else if (data == 2) {
                         $.alert({
@@ -68,7 +69,7 @@
                 error: function (err) {  
                     $.alert({
                         title: '',
-                        content: 'Some thing went worg please try after sometime!',
+                        content: 'Something went worg please try after sometime!',
                         type: 'red',
                     });
                 }  
@@ -220,7 +221,7 @@ function LoadAllworker() {
                 tabledatabody += ' <td>' + value.Gender + '</td>';
                 tabledatabody += ' <td>' + value.State + '</td>';
                 tabledatabody += ' <td>' + value.City + '</td>';
-                tabledatabody += ' <td><img style="width:80%;height:50%" src=' + value.IDProof + '></img></td>';
+                tabledatabody += ' <td><img style="width:30%;height:10%" src=' + value.IDProof + '></img></td>';
                 tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditWorkder(' + value.WorkerID + ')> <i class="glyphicon glyphicon-edit"></i></a></td>';
                 tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveCompany(' + value.CompanyID + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
                 tabledatabody += ' </tr>';
