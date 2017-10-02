@@ -9,6 +9,7 @@ namespace WFMPrototype.Models
     {
         public static int OrgID { get; set; }
         public static string Username { get; set; }
-        
+        public static int RoleID { get; set; }
+
     }
 }

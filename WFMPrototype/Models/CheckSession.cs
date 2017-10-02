@@ -17,6 +17,7 @@ namespace WFMPrototype.Models
             {
                 SessionInfo.OrgID = Convert.ToInt32(filterContext.HttpContext.Request.Cookies["OrgID"].Value);
                 SessionInfo.Username = filterContext.HttpContext.Request.Cookies["Username"].Value;
+                SessionInfo.RoleID= Convert.ToInt32(filterContext.HttpContext.Request.Cookies["RoleID"].Value);
             }
             else
             {

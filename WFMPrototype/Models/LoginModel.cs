@@ -16,5 +16,6 @@ namespace WFMPrototype.Models
 
         [Required(ErrorMessage ="Please enter password")]
         public string Password { get; set; }
+        public int rolid { get; set; }
     }
 }
