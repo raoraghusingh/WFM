@@ -165,7 +165,7 @@ function LoadDailyReporting() {
                 tabledatabody += ' <td>' + value.ShiftName + '</td>';
                 tabledatabody += ' <td>' + value.Checklist + '</td>';
                 tabledatabody += ' <td>' + value.Date + '</td>';
-                tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditDailyReporting(' + value.WorkerID +')> <i class="glyphicon glyphicon-edit"></i></a></td>';
+               // tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditDailyReporting(' + value.WorkerID +')> <i class="glyphicon glyphicon-edit"></i></a></td>';
                // tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveDailyReporting(' + value.WorkerName + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
                 tabledatabody += ' </tr>';
            });

@@ -42,9 +42,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="txtmiddlename" class="col-sm-2 control-label">Middle Name</label>
+                                    <label for="txtmiddle" class="col-sm-2 control-label">Middle Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="txtmiddlename" name="txtmiddlename" placeholder="Middle Name">
+                                        <input type="text" class="form-control" id="txtmiddle" name="txtmiddle" placeholder="Middle Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -60,9 +60,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="txtemail" class="col-sm-2 control-label">Email/User Name</label>
+                                    <label for="txtusername" class="col-sm-2 control-label">Email/User Name</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="Email/User Name">
+                                        <input type="email" class="form-control" id="txtusername" name="txtusername" placeholder="Email/User Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -126,13 +126,17 @@
                                         <textarea type="text" class="form-control" id="txtcurrentaddress" name="txtcurrentaddress" placeholder="Current Address"></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="fuidproof" class="col-sm-2 control-label">ID Proof</label>
-                                    <div class="col-sm-10">
-                                        <input type="file" id="fuidproof" name="fuidproof">
-                                    </div>
-                                </div>
+                              
 
+                                <div class="form-group">
+                                    <label for="idproof" class="col-sm-2 control-label">ID Proof</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" id="fuidproof" name="fuidproof" onchange="loadFile(event)" class="form-control">
+                                        (Adhar card,Voter ID card,any valid govt document)
+                                        <img height="20%" width="20%" id="previewmsg" />
+                                    </div>
+
+                                </div>
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">
@@ -154,18 +158,15 @@
                             <thead>
                                 <tr>
                                    
-                                    <th>First Name</th>                                   
-                                    <th>Middle Name</th>
-                                    <th>Last Name</th>
+                                    <th>Supervisor Name</th>
                                     <th>Father Name</th>
-                                    <th>Email/User Name</th>
-                                    <th>Password</th> 
-                                    <th>Mobile</th>                                  
+                                    <th>Email </th>
+                                    <th>Mobile</th>
+                                    <th>Parmanent Address</th>
+                                    <th>Current Address</th>
                                     <th>Gender</th>
                                     <th>State</th>
                                     <th>City</th>
-                                    <th>Parmanent Address</th>
-                                    <th>Current Address</th>
                                     <th>ID Proof</th>
                                     <th></th>
                                     <th></th>
@@ -182,5 +183,14 @@
     </div>
     <!-- /.row -->
 </section>
-
+<script>
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('previewmsg');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>
 <script src="~/JS/Supervisor/supervisor.js"></script>

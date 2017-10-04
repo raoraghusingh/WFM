@@ -10,6 +10,7 @@ using WFMPrototype.Models;
 
 namespace WFMPrototype.Controllers
 {
+  
     public class WorkerController : Controller
     {
         // GET: Worker
@@ -161,7 +162,7 @@ namespace WFMPrototype.Controllers
             {
                 using (var db = new WFMLiveDataContext())
                 {
-                    workerdetails = db.tbl_workers.Where(a => a.WorkerID == workerid).FirstOrDefault();
+                    workerdetails = db.tbl_workers.Where(a => a.WorkerID == workerid && a.OrgID == SessionInfo.OrgID).FirstOrDefault();
                 }
 
             }catch(Exception ex)
@@ -206,5 +207,29 @@ namespace WFMPrototype.Controllers
             }
             return Json(citylist, JsonRequestBehavior.AllowGet);
         }
+        [CheckSession]
+        public ActionResult RemoveWorker(int WorkerID)
+        {
+
+            try
+            {
+                using (var db = new WFMLiveDataContext())
+                {
+                    tbl_worker Obj = new tbl_worker();
+                    Obj = db.tbl_workers.Where(a => a.WorkerID == WorkerID && a.OrgID == SessionInfo.OrgID).FirstOrDefault();
+                    Obj.IsActive = false;
+                    db.SubmitChanges();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Json("0", JsonRequestBehavior.AllowGet);
+        }
     }
+
+   
 }

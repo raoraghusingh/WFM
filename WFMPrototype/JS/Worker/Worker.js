@@ -1,6 +1,6 @@
 ﻿$.validator.setDefaults({
     submitHandler: function () {
-        debugger;
+ 
 
         if (window.FormData !== undefined) {  
   
@@ -61,7 +61,7 @@
                     else if (data == 3) {
                         $.alert({
                             title: '',
-                            content: 'Company details updated successfully!',
+                            content: 'Worker details updated successfully!',
                             type: 'green',
                         });
                     }
@@ -85,7 +85,7 @@
 
 
 $(document).ready(function () {
-    $("#spantext").text("Create Worker");
+    $("#spantext").text("Add Worker");
     LoadAllworker();
     bindState();
     
@@ -162,7 +162,7 @@ $(document).ready(function () {
 
   
     $("#sameaddress").change(function () {
-        debugger;
+     
         if ($(this).is(":checked")) {
             $("#txtcurrentaddress").val($("#txtparmaent").val());
         } else {
@@ -172,32 +172,7 @@ $(document).ready(function () {
 });
 
 
-function LoadCompany() {
-    $.ajax({
-        type: "GET",
-        url: "Company/CompanyList",
-        data: "",
-        cache: false,
-        success: function (data) {
 
-
-
-
-            $("#ddlcompanyname").html("");
-            $('#ddlcompanyname').append($('<option>', {
-                value: "",
-                text: "Select company"
-            }));
-            $.each(data, function (i, value) {
-
-                $('#ddlcompanyname').append($('<option>', {
-                    value: value.CompanyID,
-                    text: value.CompanyName
-                }));
-            })
-        }
-    });
-}
 function LoadAllworker() {
     $.ajax({
         type: "GET",
@@ -205,7 +180,7 @@ function LoadAllworker() {
         data: "",
         cache: false,
         success: function (data) {
-            debugger;
+        
             $('#tblcompanyworker').DataTable().destroy();
             $("#tblcompanyworker tbody").empty();
 
@@ -223,7 +198,7 @@ function LoadAllworker() {
                 tabledatabody += ' <td>' + value.City + '</td>';
                 tabledatabody += ' <td><img style="width:30%;height:10%" src=' + value.IDProof + '></img></td>';
                 tabledatabody += ' <td><a href="javascript:void(0);" onclick=EditWorkder(' + value.WorkerID + ')> <i class="glyphicon glyphicon-edit"></i></a></td>';
-                tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveCompany(' + value.CompanyID + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
+                tabledatabody += ' <td><a href="javascript:void(0);" onclick=RemoveWorker(' + value.WorkerID + ')><i class="glyphicon glyphicon-remove-sign"></i></a></td>';
                 tabledatabody += ' </tr>';
             });
 
@@ -342,7 +317,7 @@ function EditWorkder(WorkderID) {
     });
 }
 
-function RemoveCompany(CompanyID) {
+/* function RemoveCompany(CompanyID) {
     $.ajax({
         type: "GET",
         url: "Company/Removecompany",
@@ -356,6 +331,26 @@ function RemoveCompany(CompanyID) {
             $.alert({
                 title: '',
                 content: 'Company deleted successfully!',
+                type: 'green',
+            });
+        }
+    });
+} */
+
+function RemoveWorker(WorkerID) {
+
+
+    $.ajax({
+        type: "GET",
+        url: "Worker/RemoveWorker",
+        data: { WorkerID: WorkerID },
+        cache: false,
+        success: function (data) {
+
+            LoadAllworker();
+            $.alert({
+                title: '',
+                content: 'Worker details deleted successfully!',
                 type: 'green',
             });
         }
